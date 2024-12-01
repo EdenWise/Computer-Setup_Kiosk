@@ -16,6 +16,16 @@ if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
 [Environment]::SetEnvironmentVariable("SCOOP", "$env:USERPROFILE\Program-Manager", "User")
 # requires new process to recognize settings.
 
+#"Path" = "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;$env:USERPROFILE\Program-Manager\shims\;"
+
+$VAR_NAMES = @{
+  "DSP_BRT"              = "80"
+  "MSE_SNS"              = "5"
+  "HOME"                 = "$env:APPDATA\.config"
+  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\Program-Manager\persist\inkscape\settings"
+  "SCOOP"                = "$env:USERPROFILE\Program-Manager"
+}
+
 
 ## ENVIRONMENTAL VARIABLES FOR USER
 #

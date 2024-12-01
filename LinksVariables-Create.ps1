@@ -10,10 +10,10 @@ if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
 [Environment]::SetEnvironmentVariable("DSP_BRT", "80", "User")
 [Environment]::SetEnvironmentVariable("MSE_SNS", "5", "User")
 [Environment]::SetEnvironmentVariable("HOME", "$env:APPDATA\.config", "User")
-[Environment]::SetEnvironmentVariable("INKSCAPE_PROFILE_DIR", "$env:SCOOP\persist\inkscape\settings", "User")
+[Environment]::SetEnvironmentVariable("INKSCAPE_PROFILE_DIR", "$env:USERPROFILE\Program-Manager\persist\inkscape\settings", "User")
 [Environment]::SetEnvironmentVariable("Path", "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;" + $env:Path, "User")
 [Environment]::SetEnvironmentVariable("Path", "$env:USERPROFILE\Program-Manager\shims\;" + $env:Path, "User")
-[Environment]::SetEnvironmentVariable("SCOOP", "$env:USERPROFILE\Program-Manager\shims\;" + $env:Path, "User")
+[Environment]::SetEnvironmentVariable("SCOOP", "$env:USERPROFILE\Program-Manager", "User")
 # requires new process to recognize settings.
 
 

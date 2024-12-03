@@ -17,8 +17,10 @@ $VARI_VALU = @{
   "SCOOP"                = "$env:USERPROFILE\Program-Manager"
 }
 
-#$VARI_VALU.GetEnumerator() | % { echo "$($_.Key) $($_.Value)"}
-#$VARI_VALU.GetEnumerator() | ForEach { echo "$($_.Key) $($_.Value)"}
+$PATHS = @(
+  "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;"
+  "$env:USERPROFILE\Program-Manager\shims\;"
+)
 
 $VARI_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")

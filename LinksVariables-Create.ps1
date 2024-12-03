@@ -124,11 +124,11 @@ foreach ( $app_dir in $APP_DIRS ) {
 #
 $APPS_PSBL = (Get-ChildItem -Path $env:SCOOP\persist).Name
 foreach ( $app in $APPS_PSBL ) { 
-  if ( Test-Path $env:SCOOP\apps\$app ) {  # Use persist directory name and test if app is installed
+  if ( Test-Path $env:SCOOP\apps\$app | Out-Null ) {  # Use persist directory name and test if app is installed
     $MNFS_JSON = Get-Content -Path $env:SCOOP\apps\$app\current\manifest.json | ConvertFrom-Json
     $app_prsts = $MNFS_JSON.persist
     foreach ( $prst in $app_prsts ) {
-      if ( Test-Path -PathType Container $env:SCOOP\persist\$app\$prst ) {
+      if ( Test-Path -PathType Container $env:SCOOP\persist\$app\$prst | Out-Null ) {
         if ( Test-Path $env:SCOOP\apps\$app\current\$prst ) {
             Remove-Item -Force -Path $env:SCOOP\apps\$app\current\$prst -Recurse }
         ## if ( $? ) { echo "* Removed: $app_cur" }    #### keeps repeating rm'd wt\current

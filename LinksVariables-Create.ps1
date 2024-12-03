@@ -27,11 +27,17 @@ $VARI_VALU.GetEnumerator() | ForEach-Object {
   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
 }
 
+foreach ( $path in $PATHS ) {
+  [System.Environment]::SetEnvironmentVariable("Path", $env:Path + "$path", "User")
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path","User")
+  #New-Item -Force -Path env:\$Path -Value "$env:Path"
+}
+
 #[Environment]::SetEnvironmentVariable("DSP_BRT", "80", "User")
 #[Environment]::SetEnvironmentVariable("MSE_SNS", "5", "User")
 #[Environment]::SetEnvironmentVariable("HOME", "$env:APPDATA\.config", "User")
 #[Environment]::SetEnvironmentVariable("INKSCAPE_PROFILE_DIR", "$env:USERPROFILE\Program-Manager\persist\inkscape\settings", "User")
-[Environment]::SetEnvironmentVariable("Path", $env:Path + "$env:USERPROFILE\Program-Manager\shims\;$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;", "User")
+#[Environment]::SetEnvironmentVariable("Path", $env:Path + "$env:USERPROFILE\Program-Manager\shims\;$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;", "User")
 #[Environment]::SetEnvironmentVariable("Path", $env:Path + "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;", "User")
 #[Environment]::SetEnvironmentVariable("Path", $env:Path + "$env:USERPROFILE\Program-Manager\shims\;", "User")
 #[Environment]::SetEnvironmentVariable("SCOOP", "$env:USERPROFILE\Program-Manager", "User")
@@ -39,7 +45,7 @@ $VARI_VALU.GetEnumerator() | ForEach-Object {
 
 #"Path" = "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;$env:USERPROFILE\Program-Manager\shims\;"
 
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")                 # $env:Path reset
+# $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")                 # $env:Path reset
 
 
 ## ENVIRONMENTAL VARIABLES FOR USER

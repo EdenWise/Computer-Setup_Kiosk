@@ -15,7 +15,7 @@ $URIS = @(
 )
 
 foreach ( $uri in $URIS ) {
-    curl.exe --remote-name $uri
+    curl.exe --location $uri --remote-name
   # Start-BitsTransfer -Asyncronous $uri
 }
 

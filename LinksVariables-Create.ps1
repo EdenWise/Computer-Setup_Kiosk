@@ -108,7 +108,9 @@ if ( -not $env:SCOOP ) {
 #
 $APP_DIRS = (Get-ChildItem -Directory -Exclude scoop  -Path $env:SCOOP\apps).FullName
 foreach ( $app_dir in $APP_DIRS ) {
-  $app_new = Get-ChildItem -Directory -Exclude current -Path $app_dir | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  # $app_new = Get-ChildItem -Directory -Exclude current -Include "[0-9].*" -Path $app_dir | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  # below is hack to fix floorp putting profile in `appname\` directory.s
+  $app_new = Get-ChildItem -Directory -Exclude current -Path "$app_dir" | Where-Object { $_.Name -match "[0-9].*" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 }}
   # $app_new = ($app_new).FullName
   $app_cur = "$app_dir\current"
   if ( Test-Path $app_cur ) {

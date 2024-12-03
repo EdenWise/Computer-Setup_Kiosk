@@ -18,6 +18,12 @@ $VARI_VALU = @{
 }
 
 #$VARI_VALU.GetEnumerator() | % { echo "$($_.Key) $($_.Value)"}
+#$VARI_VALU.GetEnumerator() | ForEach { echo "$($_.Key) $($_.Value)"}
+
+$VARI_VALU.GetEnumerator() | ForEach-Object {
+  [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
+}
+$env:MSE_SNS = [System.Environment]::GetEnvironmentVariable("MSE_SNS", "User")
 
 [Environment]::SetEnvironmentVariable("DSP_BRT", "80", "User")
 [Environment]::SetEnvironmentVariable("MSE_SNS", "5", "User")

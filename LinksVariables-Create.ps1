@@ -7,6 +7,18 @@ if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
   exit
 }
 
+## ENVIRONMENTAL VARIABLES FOR USER
+#
+$VARI_VALU = @{
+  "DSP_BRT"              = "80"
+  "MSE_SNS"              = "5"
+  "HOME"                 = "$env:APPDATA\.config"
+  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\Program-Manager\persist\inkscape\settings"
+  "SCOOP"                = "$env:USERPROFILE\Program-Manager"
+}
+
+#$VARI_VALU.GetEnumerator() | % { echo "$($_.Key) $($_.Value)"}
+
 [Environment]::SetEnvironmentVariable("DSP_BRT", "80", "User")
 [Environment]::SetEnvironmentVariable("MSE_SNS", "5", "User")
 [Environment]::SetEnvironmentVariable("HOME", "$env:APPDATA\.config", "User")
@@ -19,13 +31,7 @@ if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
 
 #"Path" = "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;$env:USERPROFILE\Program-Manager\shims\;"
 
-$VAR_NAMES = @{
-  "DSP_BRT"              = "80"
-  "MSE_SNS"              = "5"
-  "HOME"                 = "$env:APPDATA\.config"
-  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\Program-Manager\persist\inkscape\settings"
-  "SCOOP"                = "$env:USERPROFILE\Program-Manager"
-}
+
 
 
 ## ENVIRONMENTAL VARIABLES FOR USER
@@ -79,9 +85,6 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 # and hard links are DISM or wimlib. This portion will recreate them by using
 # the information from the installed applications's manifest.json files.
 #
-if ( -not $env:SCOOP ) {
-  $env:SCOOP = "$env:USERPROFILE\Program-Manager"
-}
 if ( -not $env:SCOOP ) {
   Write-Output "Note: Script edit and define directory for Scoop installations."
   exit

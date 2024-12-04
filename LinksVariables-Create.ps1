@@ -1,6 +1,6 @@
 ## Link and Variable creation. 
 #  * Program Manager (Scoop): recreate links that get lost in archiving.
-#  * Variables: create that are needed for the environment (I have put script variables here too).
+#  * Variables: create that are needed for the environment (I have put script variables here too)..
 
 if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
   echo " * Run ``Archive-Extract.ps1`` first."

@@ -8,7 +8,7 @@ $KEY_VALU = @{
   "DSP_BRT"              = "80"                                    # Display Brightness
   "MSE_SNS"              = "5"                                     # Mouse Sensitivity
   "HOME"                 = "$env:APPDATA\.config"                  # Home dir for Linux-apps
-  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\Program-Manager\persist\inkscape\settings"  # Vector graphic editor
+  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\persist\inkscape\settings"  # Vector graphic editor
   "SCOOP"                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 }
 
@@ -19,7 +19,6 @@ $PATHS = @(                                                        # Paths with 
 
 $KEY_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
-  #$env:"$($_.Key)" += "$_.Value"
   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
 }
 
@@ -44,8 +43,8 @@ foreach ( $app_dir in $APP_DIRS ) {
   $app_new = Get-ChildItem -Directory -Exclude current -Path $app_dir | Sort-Object LastWriteTime -Descending | Select-Object -First 1
   $app_cur = "$app_dir\current"
   if ( Test-Path $app_cur ) {
-    Remove-Item -Force -Path $app_cur -Recurse   ## This is dangerous, use only if sure.
-    echo "rm'd: $app_cur" }
+    Remove-Item -Force -Path $app_cur -Recurse }  ## This is dangerous, use only if sure.
+    # echo "rm'd: $app_cur"
   New-Item -Force -ItemType Junction -Path $app_cur -Value $app_new | Select-Object -ExpandProperty FullName }
 #
 # Junctions and hardlinks from persist directory recreate. ARRAY_RM-ITEM: https://bit.ly/30i5gxC

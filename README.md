@@ -1,2 +1,1 @@
-# Computer-Setup_Kiosk
-Computer setup by using scripts for PowerShell (settings, program-manager, personal files...).
+Computer Setup on a Kiosk scripts. These are PowerShell scripts to setup some settings, a program manager, and archive creation.

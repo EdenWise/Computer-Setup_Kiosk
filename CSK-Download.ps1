@@ -1,17 +1,19 @@
+## Computer Setup on a Kiosk scripts
+## curl.exe https://bit.ly/csk-d -Lo CSK-Download.ps1
+
 $URIS = @(
-  "https://7-zip.org/a/7zr.exe"  ## ???
-  #"https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/7za.exe"
+  "https://7-zip.org/a/7zr.exe"
   #
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/Archive-Extract.ps1"
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/LinksVariables-Create.ps1"
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/pwsh-start.ps1"
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/pwsh-update.ps1"
   #
-   #"https://ice-us-sfo-56011.icedrive.io/download?p=Oun1Aw1B_AjOlnJgEpxiEjIFt5_QjNTWNKCRYYGppjNJU1eAH_ZjegR.ydmEuuAJKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWOqGStjIR1TgYH4nMTX1T1IuBKtRXLz5yZHXv27FtKSLJHVxAjgMWaTTm.VTxb6HORNtkit57.qm0dw7wXclI25sDhZ42BVO2JdPJAXsqsRhg--"  ## Files_Library.wim ; URL changes.
-   #
-   #"https://ice-us-sfo-56011.icedrive.io/download?p=Oun1Aw1B_AjOlnJgEpxiEorQ3j_p7N4DruHOxdIoCirqlhHqGcVHB4GdonHWLWDaKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWMeSr9EZSiE0G5uIwBwEzuUTF0xkXiSdeoYMHrtCxCiooN4dWxoaXTj5o6iRqE03NkSt2pwV7jGDv1xGrEtZNF9"  ## 7zr.exe : URL Changes.
-   #"https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/refs/heads/main/Archive-Extract.ps1"  ## alternate?!
-   #"https://icedrive.net/s/98u236P7VuSCx94xh2a7uz5aAz7Q"  # fails to resolve
+  # "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/refs/heads/main/Archive-Extract.ps1"  ## alternate
+  # "https://icedrive.net/s/DQ5jYDyYVCXjTVDbkY4hG49uiwTT"                                                  ## Files_Library.7z download webpage.
+  # "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/7za.exe"
+  # "https://ice-eu-107586.icedrive.io/download?p=S0G47B2UMbGG2lGV0k.bLu1dXWojgQkI_hGi5L5cRRVc4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWNwcytxnemqFHyNLvw1XWQZ1pRDk6wNCTJoj97OPYVoG6Tl7MToZg1slOsSnRZzxMdNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--" ## Files_Library.7z... looks like link alternates some.
+  #
 )
 
 foreach ( $uri in $URIS ) {
@@ -19,7 +21,6 @@ foreach ( $uri in $URIS ) {
   # Start-BitsTransfer -Asyncronous $uri
 }
 
-#mv download?p=Oun1Aw1B_AjOlnJgEpxiEjIFt5_QjNTWNKCRYYGppjNJU1eAH_ZjegR.ydmEuuAJKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWOqGStjIR1TgYH4nMTX1T1IuBKtRXLz5yZHXv27FtKSLJHVxAjgMWaTTm.VTxb6HORNtkit57.qm0dw7wXclI25sDhZ42BVO2JdPJAXsqsRhg-- Files_Library.wim
-#mv download?p=Oun1Aw1B_AjOlnJgEpxiEorQ3j_p7N4DruHOxdIoCirqlhHqGcVHB4GdonHWLWDaKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWMeSr9EZSiE0G5uIwBwEzuUTF0xkXiSdeoYMHrtCxCiooN4dWxoaXTj5o6iRqE03NkSt2pwV7jGDv1xGrEtZNF9" 7zr.exe
+Write-Output "curl.exe `"https://ice-eu-107586.icedrive.io/download?p=S0G47B2UMbGG2lGV0k.bLs2ifvrN6egv6nCfqG0HsG9c4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWNwcytxnemqFHyNLvw1XWQZ1pRDk6wNCTJoj97OPYVoG6Tl7MToZg1slOsSnRZzxMdNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Library.7z"
 
-# curl.exe https://bit.ly/csk-d -Lo CSK-Download.ps1
+# 

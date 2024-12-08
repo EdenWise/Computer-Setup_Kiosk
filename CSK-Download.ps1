@@ -22,5 +22,5 @@ foreach ( $uri in $URIS ) {
 }
 
 Write-Output "curl.exe `"https://ice-eu-107586.icedrive.io/download?p=S0G47B2UMbGG2lGV0k.bLs2ifvrN6egv6nCfqG0HsG9c4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWNwcytxnemqFHyNLvw1XWQZ1pRDk6wNCTJoj97OPYVoG6Tl7MToZg1slOsSnRZzxMdNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Library.7z"
-
+Write-Output "curl.exe `"https://ice-eu-11554563.icedrive.io/download?p=h9mf.hTfydP9Yug7jMcGn6BN437nT3b3k3lVZkWyRZFc4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWOeevq260HwRxWlPgD1s4l6aSR6gLk57AAgYfZqE85PfB3T78c4__SRyN410Q2yPaRNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Library.7z"
 # 

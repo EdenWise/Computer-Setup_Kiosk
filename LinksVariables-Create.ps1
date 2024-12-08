@@ -13,8 +13,8 @@ $KEY_VALU = @{
 }
 
 $PATHS = @(                                                        # Paths with executables to add.
-  "$env:APPDATA\Microsoft\Windows\PowerShell\Scripts;"
-  "$env:USERPROFILE\Program-Manager\shims\;"
+  "$env:USERPROFILE\Documents\PowerShell;"
+  "$env:USERPROFILE\Program-Manager\shims;"
 )
 
 $KEY_VALU.GetEnumerator() | ForEach-Object {

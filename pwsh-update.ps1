@@ -10,4 +10,4 @@ if ( Get-Process -Name OpenConsole ) {
   echo "Stop-Process -Name WindowsTerminal"
   exit
 }
-conhost.exe powershell.exe -ExecutionPolicy Unrestricted -NoExit -NoProfile -Command "$env:USERPROFILE\Program-Manager\apps\scoop\current\bin\scoop.ps1 update pwsh,windows-terminal"
+conhost.exe powershell.exe -ExecutionPolicy Unrestricted -NoExit -NoProfile -Command "$env:USERPROFILE\Program-Manager\apps\scoop\current\bin\scoop.ps1 update cascadia-code,pwsh,windows-terminal"

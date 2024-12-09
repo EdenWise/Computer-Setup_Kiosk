@@ -105,7 +105,10 @@ foreach ( $fnt in $FNT_LST ) {
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) { 
-    #cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+    if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
+      mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+    }
+    cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value $fnt.FullName -Force
   }
 }

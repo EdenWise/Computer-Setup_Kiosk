@@ -2,14 +2,22 @@
 ### Links recreate for Program Manager (Scoop); few methods are availe to archive them.
 ### Variables for the environment create (I have put script variables here too).
 
-## ENVIRONMENTAL VARIABLES FOR USER
+## VARIABLES FOR SCRIPT
+#
+$env:DSP_BRT              = "80"                                    # Display Brightness
+$env:MSE_SNS              = "5"                                     # Mouse Sensitivity
+$env:HOME                 = "$env:APPDATA\.config"                  # Home dir for Linux-apps
+$env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector graphic editor
+$env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
+
+## ENVIRONMENTAL VARIABLES (USER)
 #
 $KEY_VALU = @{
-  "DSP_BRT"              = "80"                                    # Display Brightness
-  "MSE_SNS"              = "5"                                     # Mouse Sensitivity
-  "HOME"                 = "$env:APPDATA\.config"                  # Home dir for Linux-apps
-  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\persist\inkscape\settings"  # Vector graphic editor
-  "SCOOP"                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
+  "DSP_BRT"              = "80"
+  "MSE_SNS"              = "5"
+  "HOME"                 = "$env:APPDATA\.config"
+  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\persist\inkscape\settings"
+  "SCOOP"                = "$env:USERPROFILE\Program-Manager"
 }
 
 $PATHS = @(                                                        # Paths with executables to add.

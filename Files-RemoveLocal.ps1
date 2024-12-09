@@ -1,24 +1,20 @@
-Set-Location $env:USERPROFILE
+## Files remove that were part of archive.
+### Some kiosk managers may leave files on the computer. This script will remove them with the files specified to the script "Archive-Create.ps1".
 
-$LIST_OF_INCLUDES = @(
-  ".vscode"
-  ".scrap"
-  "AppData\Local\.config"
-  "AppData\LocalLow\Daggerfall Workshop"
-  "AppData\Roaming\inkscape"
-  "AppData\Roaming\Microsoft\Windows\My Games"
-  "AppData\Roaming\Microsoft\Windows\PowerShell"
-  "Documents\*"
-  # "Documents\My Games"
-  # "Documents\PowerShell\*"
-  # "Documents\Source"
-  # "Documents\Vault"
-  "Program-Manager"
-  "WindowsTerminal.lnk"
-  "Downloads\*" )
+Push-Location $env:USERPROFILE
 
-Remove-Item -Recurse -Force -Path $LIST_OF_INCLUDES
+$FILE_INCS = $env:TEMP\archive-includes.txt
+if ( -not (Test-Path $FILE_INCS) ) {
+  Write-Output "File missing: $FILE_INCS"
+  exit
+}
 
-# Note when using the -Recurse parameter with -Include in Remove-Item, it can be unreliable. So it's best to recurse the files first with Get-ChildItem and then pipe into Remove-Item. This may also help if you deleting large folder structures.
+$FILE_INCS = Get-Content $FILE_INCS
 
-# Get-ChildItem $directoryPath -Recurse | Remove-Item -Force  
+# A TIP I GOT: Note when using the -Recurse parameter with -Include in Remove-Item, it can be unreliable. So it's best to recurse the files first with Get-ChildItem and then pipe into Remove-Item. This may also help if you deleting large folder structures.
+# Remove-Item -Recurse -Force -Path $FILE_INCS
+
+$FILE_INCS | Get-ChildItem -Force -Recurse | Remove-Item -Force -Recurse
+
+Pop-Location
+

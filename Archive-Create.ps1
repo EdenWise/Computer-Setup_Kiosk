@@ -23,8 +23,8 @@ $PATH_CONT = "$env:USERPROFILE\Downloads\${TYPE}_${LCTN}${LOCL}.$CONT"
 $PATH_CMPR = "$env:USERPROFILE\Downloads\${TYPE}_${LCTN}${LOCL}.$CMPR"
 $PATH_COCM = "$env:USERPROFILE\Downloads\${TYPE}_${LCTN}${LOCL}.$CONT.$CMPR"  # Container and Compress
 #
-$FILE_INCS = "$env:USERPROFILE\Downloads\archive-includes.txt"
-$FILE_EXCS = "$env:USERPROFILE\Downloads\archive-excludes.txt"
+$FILE_INCS = "$env:TEMP\archive-includes.txt"
+$FILE_EXCS = "$env:TEMP\archive-excludes.txt"
 
 ## LISTS OF INCLUDE AND EXCLUDE FILES
 #

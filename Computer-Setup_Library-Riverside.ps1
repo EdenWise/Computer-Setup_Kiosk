@@ -109,7 +109,7 @@ foreach ( $fnt in $FNT_LST ) {
       mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
     }
     cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
-    New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value $fnt.FullName -Force
+    New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force
   }
 }
 

@@ -28,6 +28,7 @@ $PATHS = @(                                                        # Paths with 
 $KEY_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
+  # New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" # Process??
 }
 
 foreach ( $path in $PATHS ) {

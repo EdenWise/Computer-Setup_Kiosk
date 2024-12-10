@@ -7,8 +7,8 @@
 # Links have to be recreated. MS-Zip, 7-zip's (.7z), 7-zip's WIM, and tar all fail for NTFS links:
 # MS-Zip fails to do them; .7z fails to do them AND copies junctions as directories (which can make
 # for large archives); 7-zip's WIM works some with symbolic links but can have extraction problems
-# (junctions are created as a blank file, and hardlinks are copied); and tar only works on a 
-# Linux-like filesytem. Using `dism.exe` works and is a nice container solution (a similar idea of
+# (junctions are created as a blank file, and hard-links are copied); and tar only works on a 
+# Linux-like filesystem. Using `dism.exe` works and is a nice container solution (a similar idea of
 # WIM and tar) but requires administrative rights.
 
 ## VARIABLES
@@ -54,7 +54,7 @@ $LIST_EXCS = @(
   "Documents\My Pictures"
   "Documents\My Shapes"
   "Documents\My Videos"
-  # "Downloads"                               # DANGEROUS-will gestaltly effect other 'Download' dir.
+  # "Downloads"                          # DANGEROUS: 7zip reads exclude entries as a general pattern.
   # "Program-Manager\apps\vscode\current\data"       # for .7z format
   # "Program-Manager\apps\waterfox\current\profile"  # for .7z format
   # "Program-Manager\apps\*\current"                 # DANGEROUS-will skip single dir `Scoop/apps/current`

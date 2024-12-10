@@ -1,5 +1,5 @@
 ## LINK AND VARIABLE CREATION
-### Links recreate for Program Manager (Scoop); few methods are availe to archive them.
+### Links recreate for Program Manager (Scoop).
 ### Variables for the environment create (I have put script variables here too).
 
 ## VARIABLES FOR SCRIPT
@@ -13,11 +13,11 @@ $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Ma
 ## ENVIRONMENTAL VARIABLES (USER)
 #
 $KEY_VALU = @{
-  "DSP_BRT"              = "80"
-  "MSE_SNS"              = "5"
-  "HOME"                 = "$env:APPDATA\.config"
-  "INKSCAPE_PROFILE_DIR" = "$env:USERPROFILE\persist\inkscape\settings"
-  "SCOOP"                = "$env:USERPROFILE\Program-Manager"
+  "DSP_BRT"               = $env:DSP_BRT
+  "MSE_SNS"               = $env:MSE_SNS
+  "HOME"                  = $env:HOME
+  "INKSCAPE_PROFILE_DIR"  = $env:INKSCAPE_PROFILE_DIR
+  "SCOOP"                 = $env:SCOOP
 }
 
 $PATHS = @(                                                        # Paths with executables to add.

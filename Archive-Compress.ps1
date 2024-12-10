@@ -49,6 +49,7 @@ $LIST_INCS = @(
 
 #
 $LIST_EXCS = @(
+  "desktop.ini"
   "Documents\My Music"
   "Documents\My Pictures"
   "Documents\My Shapes"

@@ -2,6 +2,11 @@
 ### Links recreate for Program Manager (Scoop).
 ### Variables for the environment create (I have put script variables here too).
 
+if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
+  echo "Archive extract first."
+  exit
+}
+
 ## VARIABLES FOR SCRIPT
 #
 $env:DSP_BRT              = "80"                                    # Display Brightness

@@ -31,20 +31,17 @@ $FILE_EXCS = "$env:TEMP\archive-excludes.txt"
 $LIST_INCS = @(
   # ".config"
   # "AppData\LocalLow\Daggerfall Workshop"
-  # "AppData\Roaming\ColorCop"
-  # "AppData\Roaming\inkscape"
-  # "AppData\Roaming\Waterfox"
+  # "AppData\Roaming\Microsoft\Windows\PowerShell"
   # ".vscode"
+  # "WindowsTerminal.lnk"
   ".scrap"
   "AppData\Roaming\.config"
   "AppData\Roaming\Microsoft\Windows\My Games\Neverball-dev"
-  "AppData\Roaming\Microsoft\Windows\PowerShell"
   "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps"
   "Documents"
   "Program-Manager"
   #
   "tasks.code-workspace"
-  "WindowsTerminal.lnk"
 ) | Out-File -Force $FILE_INCS
 
 #

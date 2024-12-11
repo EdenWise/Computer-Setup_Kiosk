@@ -1,16 +1,17 @@
 ## Computer Setup on a Kiosk, download scripts.
-## curl.exe https://bit.ly/csk-d -Lo CSK-Download.ps1
+### curl.exe https://bit.ly/csk-d -Lo CSK-Download.ps1
+### "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/7za.exe"
+### "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/refs/heads/main/Archive-Extract.ps1"
 
 $URIS = @(
   "https://7-zip.org/a/7zr.exe"
   #
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/Archive-Extract.ps1"
-  # "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/refs/heads/main/Archive-Extract.ps1"
+  "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/Computer-Setup.ps1"
+  "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/LinksVariables-Create.ps1"
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/LinksVariables-Create.ps1"
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/pwsh-start.ps1"
   "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/pwsh-update.ps1"
-  #
-  # "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/7za.exe"
   #
 )
 

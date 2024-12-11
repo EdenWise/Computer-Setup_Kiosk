@@ -20,4 +20,4 @@ foreach ( $uri in $URIS ) {
   # Start-BitsTransfer -Asyncronous $uri
 }
 
-Write-Output "curl.exe `"https://ice-eu-53588.icedrive.io/download?p=hFmMquZjF679SnFTLVMImJ5KVht6jTuSMt56Gmr8g1Fc4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWPtr0bhldDjG_OCD2Ka2foV67oRTocxCVmXxYw3gfoqqFZFcva8ZNGbmSp5zAhENnRNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Libray.7z"
+Write-Output "curl.exe `"https://ice-eu-53588.icedrive.io/download?p=hFmMquZjF679SnFTLVMImJ5KVht6jTuSMt56Gmr8g1Fc4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWPtr0bhldDjG_OCD2Ka2foV67oRTocxCVmXxYw3gfoqqFZFcva8ZNGbmSp5zAhENnRNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Library.7z"

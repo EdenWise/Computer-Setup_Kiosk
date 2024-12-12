@@ -80,40 +80,84 @@ Set-TimeZone -Id "Pacific Standard Time"
 
 ## FONTS INSTALL (https://stackoverflow.com/q/60972345)
 #
+## List create (of fonts).
+#
 $FNT_PTHS = @(
-  "$env:SCOOP\apps\cascadia-code\current\*.ttf"
+  #"$env:SCOOP\apps\cascadia-code\current\*.ttf"
   "$env:SCOOP\apps\lora\current\*.ttf"
   "$env:SCOOP\apps\roboto-slab\current\*.ttf"
   "$env:SCOOP\apps\roboto\current\*.ttf"
+  "$env:SCOOP\apps\windows-terminal\current\*.ttf"
 )
-
+#
 if ( ([Environment]::OSVersion.Version.Build) -ge 22000 ) {
-  $FNT_PTHS[0] = $null
-} 
+  $FNT_PTHS[3] = $null
+}
+#
 foreach ( $fnt_pth in $FNT_PTHS ) {
   $FNT_LST += Get-ChildItem -File -Path $fnt_pth -Exclude "static"
 }
-
+#
+## Fonts register.
+#
 foreach ( $fnt in $FNT_LST ) {
-  # Font name acquire
+  #
+  # Font name acquire.
+  #
   $FNT_DIR = $fnt | Split-Path -Parent
   $OBJ_SHL = New-Object -ComObject Shell.Application
   $SHL_DIR = $OBJ_SHL.Namespace($FNT_DIR)
   $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
   $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
-  # Font register (looks like copy lacks being necessry).
+  #
+  # Font register.
+  #
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) { 
     if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
       mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
     }
-    # cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"  ## Hardli
-    New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Select-Object -ExpandProperty Name
-    # New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Select-Object -ExpandProperty Name
+    # cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"  # Font in font dir lacks necessity?!
+    New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Write-Output "Registered: $FNT_NME"
     #regfont.exe $fnt.FullName
   }
 }
+#
+## Font (add to font cache?!) <https://stackoverflow.com/a/58100621>
+#
+$fontCSharpCode = @'
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using System.Runtime.InteropServices;
+namespace FontResource
+{
+    public class AddRemoveFonts
+    {
+        [DllImport("gdi32.dll")]
+        static extern int AddFontResource(string lpFilename);
+        public static int AddFont(string fontFilePath) {
+            try 
+            {
+                return AddFontResource(fontFilePath);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+    }
+}
+'@
+Add-Type $fontCSharpCode
+foreach( $font in $FNT_LST )
+{
+  Write-Output "Loading $($font.FullName)"
+  [FontResource.AddRemoveFonts]::AddFont($font.FullName) | Out-Null
+}
+
 
 ## KEYBOARD: NUMLOCK ON AND LEAVE ON, HOTKEY FOR INPUT LANGUAGE SWITCHING DISABLE
 ## https://superuser.com/a/813818/532630

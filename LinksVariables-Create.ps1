@@ -32,14 +32,16 @@ $PATHS = @(                                                        # Paths with 
 #
 $MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules\"
 #
+#
 # -------- END OF CONFIGURATION SECTION --------
 
+#
+#
 ## ENVIRONMENTAL VARIABLES SET
 #
 $KEY_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
-  # New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" # Process??
 }
 #
 ## PATHS SET

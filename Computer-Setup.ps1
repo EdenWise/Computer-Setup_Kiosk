@@ -137,13 +137,8 @@ Volume_Set -Volume 8
 
 ## DISPLAY: ADJUST BRIGHTNESS AND COLOR
 #
-Invoke-CimMethod -InputObject $(Get-CimInstance -Namespace root/WMI -ClassName WmiMonitorBrightnessMethods) -MethodName WmiSetBrightness -Arguments @{Timeout=10;Brightness=$DSPLY_BRGHT} 
-# | Out-Null
-## PROBLEMS AT RIVERSIDE LIB
-#
-#(Get-WmiObject -Namespace root/WMI -Class WmiMonitorBrightnessMethods).WmiSetBrightness(1,$DSPLY_BRGHT)
-#
-#WMIC.exe /NAMESPACE:\\root\wmi PATH WmiMonitorBrightnessMethods WHERE "Active=TRUE" CALL WmiSetBrightness Brightness=$DSPLY_BRGHT Timeout=0   # Windows 11...WT?
+Invoke-CimMethod -InputObject $(Get-CimInstance -Namespace root/WMI -ClassName WmiMonitorBrightnessMethods) -MethodName WmiSetBrightness -Arguments @{Timeout=10;Brightness=$env:DSP_BRT} | Out-Null
+
 #
 # Copy-Item -Force "$env:USERPROFILE\Documents\= Computer Setup =\Profile_Display_Pima_12.icc" "C:\Windows\System32\spool\drivers\color\"
 # colorcpl.exe
@@ -255,7 +250,8 @@ $GITCONFIGS = @(
   "$env:SCOOP\persist\git-persist\etc\gitconfig" )
 #
 foreach ( $gitconfig in $GITCONFIGS ) {
-  Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig -Raw
+  Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
+  # -Raw
   Write-Host "====="
   (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
   Write-Host "====="

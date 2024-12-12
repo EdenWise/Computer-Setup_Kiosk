@@ -9,14 +9,14 @@ if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
 
 ## VARIABLES FOR SCRIPT
 #
-$env:DSP_BRT              = "80"                                    # Display Brightness
+$env:DSP_BRT              = "85"                                    # Display Brightness
 $env:MSE_SNS              = "5"                                     # Mouse Sensitivity
 $env:HOME                 = "$env:APPDATA\.config"                  # Home dir for Linux-apps
 $env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector editor settings loc.
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
 
-## ENVIRONMENTAL VARIABLES (USER)
+## ENVIRONMENTAL VARIABLES FOR "USER"
 #
 $KEY_VALU = @{
   "DSP_BRT"               = $env:DSP_BRT
@@ -31,17 +31,28 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 
+$MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules\"
+
+## ENVIRONMENTAL VARIABLES SET
+#
 $KEY_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
   # New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" # Process??
 }
-
+#
+## PATHS SET
+#
 foreach ( $path in $PATHS ) {
   [System.Environment]::SetEnvironmentVariable("Path", $env:Path + "$path", "User")
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","User")
   #New-Item -Force -Path env:\$Path -Value "$env:Path"
 }
+#
+## MODULES-PATH SET
+#
+[System.Environment]::SetEnvironmentVariable("PSModulePath", $env:PSModulePath + "$MOD_PTH", "User")
+$env:PSModulePath = [System.Environment]::GetEnvironmentVariable("PSModulePath","User")
 
 ## LINKS RECREATE FOR SCOOP
 #

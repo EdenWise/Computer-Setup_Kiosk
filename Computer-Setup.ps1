@@ -78,7 +78,7 @@ Set-TimeZone -Id "Pacific Standard Time"
 # tzutil.exe /s "Pacific Standard Time"
 # Set-ItemProperty -Path "HKCU:\Control Panel\International\" -Name sShortDate  -Value "yy.MM.dd.ddd"
 
-## FONTS INSTALL (https://stackoverflow.com/q/60972345)
+## FONTS INSTALL <https://stackoverflow.com/q/60972345>
 #
 ## List create (of fonts).
 #
@@ -110,7 +110,7 @@ foreach ( $fnt in $FNT_LST ) {
   $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
   $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
   #
-  # Font register.
+  # Font register (cp to "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" lacks necessity.)
   #
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
@@ -118,9 +118,7 @@ foreach ( $fnt in $FNT_LST ) {
     if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
       mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
     }
-    # cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"  # Font in font dir lacks necessity?!
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Write-Output "Registered: $FNT_NME"
-    #regfont.exe $fnt.FullName
   }
 }
 #

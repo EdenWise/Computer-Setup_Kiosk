@@ -2,11 +2,6 @@
 ### Links recreate for Program Manager (Scoop).
 ### Variables for the environment create (I have put script variables here too).
 
-if ( -not ( Test-Path $env:USERPROFILE\Program-Manager ) ) {
-  echo "Archive extract first."
-  exit
-}
-
 ## VARIABLES FOR SCRIPT
 #
 $env:DSP_BRT              = "85"                                    # Display Brightness
@@ -15,7 +10,7 @@ $env:HOME                 = "$env:APPDATA\.config"                  # Home dir f
 $env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector editor settings loc.
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
-
+#
 ## ENVIRONMENTAL VARIABLES FOR "USER"
 #
 $KEY_VALU = @{
@@ -24,14 +19,20 @@ $KEY_VALU = @{
   "HOME"                  = $env:HOME
   "INKSCAPE_PROFILE_DIR"  = $env:INKSCAPE_PROFILE_DIR
   "SCOOP"                 = $env:SCOOP
-}
-
+  "XDG_CONFIG_HOME"       = $env:XDG_CONFIG_HOME }
+#
+## PATHS TO ADD
+#
 $PATHS = @(                                                        # Paths with executables to add.
   "$env:USERPROFILE\Documents\PowerShell;"
   "$env:USERPROFILE\Program-Manager\shims;"
 )
-
+#
+## MODULE-PATH TO ADD
+#
 $MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules\"
+#
+# -------- END OF CONFIGURATION SECTION --------
 
 ## ENVIRONMENTAL VARIABLES SET
 #

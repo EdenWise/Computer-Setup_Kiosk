@@ -28,7 +28,7 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 #
-## MODULE-PATH TO ADD
+## PATH FOR MODULES TO ADD
 #
 $MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules\"
 #

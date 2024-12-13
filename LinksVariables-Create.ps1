@@ -63,9 +63,9 @@ $env:PSModulePath = [System.Environment]::GetEnvironmentVariable("PSModulePath",
 # and hard links are DISM or wimlib. This portion will recreate them by using
 # the information from the installed applications's manifest.json files.
 #
-# Junctions for `current` application version recreate.
-##  Use directories of newest date (assume they are the newest version).
-##  Simple clobber creation.
+## Junctions for `current` application version recreate.
+###  Use directories of newest date (assume they are the newest version).
+###  Simple clobber creation.
 #
 $APP_DIRS = (Get-ChildItem -Directory -Exclude scoop  -Path $env:SCOOP\apps).FullName
 foreach ( $app_dir in $APP_DIRS ) {
@@ -76,7 +76,8 @@ foreach ( $app_dir in $APP_DIRS ) {
     # echo "rm'd: $app_cur"
   New-Item -Force -ItemType Junction -Path $app_cur -Value $app_new | Select-Object -ExpandProperty FullName }
 #
-# Junctions and hardlinks from persist directory recreate. ARRAY_RM-ITEM: https://bit.ly/30i5gxC
+## Junctions and Hard-Links recreate to persist directory.
+### Array remove item: https://bit.ly/30i5gxC
 #
 $APPS_PSBL = (Get-ChildItem -Path $env:SCOOP\persist).Name
 foreach ( $app in $APPS_PSBL ) { 

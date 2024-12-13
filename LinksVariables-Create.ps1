@@ -33,7 +33,7 @@ $PATHS = @(                                                        # Paths with 
 $MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules\"
 #
 #
-# -------- END OF CONFIGURATION SECTION --------
+# --- END OF CONFIGURATION SECTION ---
 
 #
 #

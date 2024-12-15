@@ -84,13 +84,14 @@ Set-TimeZone -Id "Pacific Standard Time"
 #
 $FNT_PTHS = @(
   # "$env:SCOOP\apps\lora\current\*.ttf"
+  "$env:SCOOP\apps\merriweather\current\*.ttf"
   "$env:SCOOP\apps\roboto-slab\current\*.ttf"
   "$env:SCOOP\apps\roboto\current\*.ttf"
   "$env:SCOOP\apps\windows-terminal\current\*.ttf"
 )
 #
 if ( ([Environment]::OSVersion.Version.Build) -ge 22000 ) {
-  $FNT_PTHS[2] = $null
+  $FNT_PTHS[3] = $null
 }
 #
 foreach ( $fnt_pth in $FNT_PTHS ) {

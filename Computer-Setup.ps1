@@ -114,7 +114,7 @@ foreach ( $fnt in $FNT_LST ) {
   #
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
-  if ( -not $INSTLLD ) { 
+  if ( -not $INSTLLD ) {
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Out-Null
   }
 }
@@ -134,7 +134,7 @@ namespace FontResource
     [DllImport("gdi32.dll")]
     static extern int AddFontResource(string lpFilename);
     public static int AddFont(string fontFilePath) {
-      try 
+      try
       {
         return AddFontResource(fontFilePath);
       }
@@ -220,7 +220,7 @@ $RegConnect = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.
 $RegCursors = $RegConnect.OpenSubKey("Control Panel\Cursors",$true)
 $RegCursors.SetValue("","Windows Inverted")
 $RegCursors.SetValue("CursorBaseSize",0x40)     # 64 FAIL
-$RegCursors.SetValue("CursorBaseSize",0x20)     # 32 
+$RegCursors.SetValue("CursorBaseSize",0x20)     # 32
 $RegCursors.SetValue("AppStarting","%SystemRoot%\cursors\wait_i.cur")
 $RegCursors.SetValue("Arrow","%SystemRoot%\cursors\arrow_i.cur")
 $RegCursors.SetValue("Crosshair","%SystemRoot%\cursors\cross_i.cur")
@@ -272,7 +272,7 @@ $CursorRefresh::SystemParametersInfo(0x0057,0,$null,0)
 # gci $FldrTypes | gp | ? CanonicalName -match '\.SearchResults$' | %{
 #     New-Item ('{0}\AllFolders\Shell\{1}' -f $hkcuBags , $_.PSChildName) -Force |
 #         Set-ItemProperty -Name '(Default)' -Value (gp $_.PSPath).CanonicalName -PassThru |
-#         New-ItemProperty -Name Mode            -value 4  | 
+#         New-ItemProperty -Name Mode            -value 4  |
 #         New-ItemProperty -Name IconSize        -value 16 |
 #         New-ItemProperty -Name LogicalViewMode -value 1  | Get-Item ### Dislpays key after creation
 #     $hkcuBags | gci | ? PSChildName -match '\d+' | gci -s | ? PSChildName -eq $_.PSChildName | Remove-Item
@@ -294,9 +294,9 @@ $GITCONFIGS = @(
 foreach ( $gitconfig in $GITCONFIGS ) {
   Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
   # -Raw
-  Write-Host "====="
+  Write-Output "====="
   (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
-  Write-Host "====="
+  Write-Output "====="
   #
   $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
@@ -310,11 +310,11 @@ foreach ( $gitconfig in $GITCONFIGS ) {
 # WEB BROWSER
 #
 # $FILES_INIS = "$env:SCOOP\apps\floorp\Profiles\AppData\Floorp\profiles.ini"
-# Write-Host "====="
+# Write-Output "====="
 # Get-Content $FILES_INIS
-# Write-Host "====="
+# Write-Output "====="
 # $FILES_INIS | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" }
-# Write-Host "====="
+# Write-Output "====="
 # $ANSWER = Read-Host "Floorp's profile.ini replace with new PATH? (y/n)"
 # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
 #  $FILES_INIS | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" `
@@ -347,7 +347,7 @@ foreach ( $gitconfig in $GITCONFIGS ) {
 # wt new-tab --help
 # wt new-tab --profile "pwsh"
 #
-$EXE_TERM = (Get-ChildItem -Path $env:SCOOP\apps\windows-terminal -Filter wt.exe -Recurse).FullName | Select-Object -First 1
+# $EXE_TERM = (Get-ChildItem -Path $env:SCOOP\apps\windows-terminal -Filter wt.exe -Recurse).FullName | Select-Object -First 1
 #
 #
 # start $EXE_TERM

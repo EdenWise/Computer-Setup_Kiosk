@@ -18,7 +18,8 @@ foreach ( $uri in $URIS ) {
   # Start-BitsTransfer -Asyncronous $uri
 }
 
-## curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
-Write-Output "curl.exe `"https://ice-eu-53814.icedrive.io/download?p=gW8Rp75a04hnL_a71tbaxDahnIfg_XZf44NmxcO4L8Jc4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWOEXuCdeefHocC66FIljxg5JJGAtRHG3dKGDJOs_2zoPNLemxjm41uzfCgNlD9g3UZNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Library.7z"
+### curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
+Write-Output "curl.exe `"hhttps://icecube-eu-304.icedrive.io/download?p=P0Hx91KS6gNvJjR_90kkL4AhXnFIrNPyY8vHGYeK99hc4iOiSnL_DdrdG2OyxdwiKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWMxHqjQ5Bo6rPaW_msL6TK.kO.ZgeqZxTlpzIpgJB.a9RPKUmXOuho.oTCxtSs4tflNtkit57.qm0dw7wXclI25Pm6DP5HYNk.EK5ttOXgP9w--`" -Lo Files_Library.7z"
 echo "scoop uninstall lora,cascadia-code"
 echo "PSScriptAnalyzer.ps1"
+# Domine A, Merriweather A, Noto Serif B, Source_Serif_4 B

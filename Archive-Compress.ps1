@@ -51,6 +51,7 @@ $LIST_EXCS = @(
   "Documents\My Pictures"
   "Documents\My Shapes"
   "Documents\My Videos"
+  "~\Downloads\"
   # "Downloads"                          # DANGEROUS: 7zip reads exclude entries as a general pattern.
   # "Program-Manager\apps\vscode\current\data"       # for .7z format
   # "Program-Manager\apps\waterfox\current\profile"  # for .7z format

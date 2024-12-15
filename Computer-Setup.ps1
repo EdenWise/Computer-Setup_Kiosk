@@ -83,15 +83,14 @@ Set-TimeZone -Id "Pacific Standard Time"
 ## List create (of fonts).
 #
 $FNT_PTHS = @(
-  #"$env:SCOOP\apps\cascadia-code\current\*.ttf"
-  "$env:SCOOP\apps\lora\current\*.ttf"
+  # "$env:SCOOP\apps\lora\current\*.ttf"
   "$env:SCOOP\apps\roboto-slab\current\*.ttf"
   "$env:SCOOP\apps\roboto\current\*.ttf"
   "$env:SCOOP\apps\windows-terminal\current\*.ttf"
 )
 #
 if ( ([Environment]::OSVersion.Version.Build) -ge 22000 ) {
-  $FNT_PTHS[3] = $null
+  $FNT_PTHS[2] = $null
 }
 #
 foreach ( $fnt_pth in $FNT_PTHS ) {
@@ -110,14 +109,11 @@ foreach ( $fnt in $FNT_LST ) {
   $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
   $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
   #
-  # Font register (cp to "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" lacks necessity.)
+  # Font register
   #
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) { 
-    if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
-      mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
-    }
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Out-Null
   }
 }
@@ -132,26 +128,28 @@ using System.IO;
 using System.Runtime.InteropServices;
 namespace FontResource
 {
-    public class AddRemoveFonts
-    {
-        [DllImport("gdi32.dll")]
-        static extern int AddFontResource(string lpFilename);
-        public static int AddFont(string fontFilePath) {
-            try 
-            {
-                return AddFontResource(fontFilePath);
-            }
-            catch
-            {
-                return 0;
-            }
-        }
+  public class AddRemoveFonts
+  {
+    [DllImport("gdi32.dll")]
+    static extern int AddFontResource(string lpFilename);
+    public static int AddFont(string fontFilePath) {
+      try 
+      {
+        return AddFontResource(fontFilePath);
+      }
+      catch
+      {
+        return 0;
+      }
     }
+  }
 }
 '@
-Add-Type $fontCSharpCode
-foreach( $font in $FNT_LST )
-{
+if ( -not ( $fontCSharpCode ) ) {
+  Add-Type $fontCSharpCode
+}
+
+foreach( $font in $FNT_LST ) {
   Write-Output "Loading $($font.FullName)"
   [FontResource.AddRemoveFonts]::AddFont($font.FullName) | Out-Null
 }

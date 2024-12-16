@@ -85,7 +85,6 @@ Set-TimeZone -Id "Pacific Standard Time"
 ## List create (of fonts).
 #
 $FNT_PTHS = @(
-  # "$env:SCOOP\apps\lora\current\*.ttf"
   "$env:SCOOP\apps\merriweather\current\*.ttf"
   "$env:SCOOP\apps\roboto-slab\current\*.ttf"
   "$env:SCOOP\apps\roboto\current\*.ttf"
@@ -149,9 +148,8 @@ namespace FontResource
 }
 '@
 
-if ( -not [FontResource.AddRemoveFonts] ) {
-  Add-Type $fontCSharpCode
-}
+if ( [FontResource.AddRemoveFonts] ) {}
+else { Add-Type $fontCSharpCode }
 
 foreach( $font in $FNT_LST ) {
   Write-Output "Loading $($font.FullName)"

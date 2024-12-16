@@ -32,6 +32,8 @@ foreach ( $home_dir_keep in $HOME_DIRS_KEEP ) { $HOME_DIRS.Remove( "$home_dir_ke
 Get-ChildItem -Path $env:USERPROFILE -Exclude $HOME_DIRS_KEEP `
   | ForEach-Object { $_.Attributes = $_.Attributes -bor [System.IO.FileAttributes]::Hidden }
 
+Pop-Location
+
 ## APPLICATIONS REGISTER AND FTA'S ASSOCIATE
 #
 # SetUserFTA:                     https://setuserfta.com
@@ -129,24 +131,25 @@ using System.IO;
 using System.Runtime.InteropServices;
 namespace FontResource
 {
-  public class AddRemoveFonts
-  {
-    [DllImport("gdi32.dll")]
-    static extern int AddFontResource(string lpFilename);
-    public static int AddFont(string fontFilePath) {
-      try
-      {
-        return AddFontResource(fontFilePath);
-      }
-      catch
-      {
-        return 0;
-      }
+    public class AddRemoveFonts
+    {
+        [DllImport("gdi32.dll")]
+        static extern int AddFontResource(string lpFilename);
+        public static int AddFont(string fontFilePath) {
+            try 
+            {
+                return AddFontResource(fontFilePath);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
-  }
 }
 '@
-if ( -not ( $fontCSharpCode ) ) {
+
+if ( -not [FontResource.AddRemoveFonts] ) {
   Add-Type $fontCSharpCode
 }
 

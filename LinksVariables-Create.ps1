@@ -30,7 +30,7 @@ $PATHS = @(                                                        # Paths with 
 #
 ## PATH FOR MODULES TO ADD
 #
-$MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules\"
+$MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules"
 #
 # --- SECTION FOR CONFIGURING ENDS HERE ---
 
@@ -53,7 +53,14 @@ foreach ( $path in $PATHS ) {
 #
 ## MODULES-PATH SET
 #
-# $env:PSModulePath.Split(";")
+$PSMOD_PTHS = $env:PSModulePath.Split(";")
+$env:PSModulePath = ""
+foreach ( $psmod_pth in $PSMOD_PTHS ) {
+  if ( Test-Path $psmod_pth/* ) {
+    $env:PSModulePath = $env:PSModulePath + "${psmod_pth};"
+  }
+}
+
 [System.Environment]::SetEnvironmentVariable("PSModulePath", $env:PSModulePath + "$MOD_PTH", "User")
 $env:PSModulePath = [System.Environment]::GetEnvironmentVariable("PSModulePath","User")
 

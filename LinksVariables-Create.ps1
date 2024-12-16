@@ -53,6 +53,7 @@ foreach ( $path in $PATHS ) {
 #
 ## MODULES-PATH SET
 #
+# $env:PSModulePath.Split(";")
 [System.Environment]::SetEnvironmentVariable("PSModulePath", $env:PSModulePath + "$MOD_PTH", "User")
 $env:PSModulePath = [System.Environment]::GetEnvironmentVariable("PSModulePath","User")
 

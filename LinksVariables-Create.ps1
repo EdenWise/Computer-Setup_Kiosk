@@ -51,7 +51,7 @@ foreach ( $path in $PATHS ) {
   #New-Item -Force -Path env:\$Path -Value "$env:Path"
 }
 #
-## MODULES-PATH SET
+## MODULES-PATH SET (FORCED TO USE ~\DOCUMENTS\POWERSHELL\MODULES)
 #
 $PSMOD_PTHS = $env:PSModulePath.Split(";")
 $env:PSModulePath = ""

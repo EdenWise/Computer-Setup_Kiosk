@@ -130,26 +130,27 @@ using System.IO;
 using System.Runtime.InteropServices;
 namespace FontResource
 {
-  public class AddRemoveFonts
-  {
-    [DllImport("gdi32.dll")]
-    static extern int AddFontResource(string lpFilename);
-    public static int AddFont(string fontFilePath) {
-      try 
-      {
-        return AddFontResource(fontFilePath);
-      }
-      catch
-      {
-        return 0;
-      }
+    public class AddRemoveFonts
+    {
+        [DllImport("gdi32.dll")]
+        static extern int AddFontResource(string lpFilename);
+        public static int AddFont(string fontFilePath) {
+            try 
+            {
+                return AddFontResource(fontFilePath);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
-  }
 }
 '@
 
 if ( [FontResource.AddRemoveFonts] ) {}
 else { Add-Type $fontCSharpCode }
+Add-Type $fontCSharpCode
 
 foreach( $font in $FNT_LST ) {
   Write-Output "Loading $($font.FullName)"

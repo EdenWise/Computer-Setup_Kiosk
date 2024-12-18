@@ -15,7 +15,7 @@
 #
 $TYPE = "Files"
 $LCTN = "Library"
-# $LOCL = "-Riverside"
+# $LOCL = "-Locale"
 $CONT = "wim"
 $CMPR = "7z"
 #
@@ -69,8 +69,8 @@ Push-Location $env:USERPROFILE
 # COMPRESSION ONLY (compression [low-high]: -mx=[0-9])
 # 7zr.exe u $PATH_CMPR -up0q0r2x1y2z1w2 -ir@"$FILE_INCS" -xr@"$FILE_EXCS" -ms=off -snh -snl -mx=0
 #
-# CONTAINER: WIM WITH OPTIONAL COMPRESSION (COMPRESSES VERY LITTLE, ABOUT 10%).
+# CONTAINER: WIM WITH OPTIONAL COMPRESSION (.7z COMPRESSES VERY LITTLE, ABOUT 13%).
 7zr.exe u $PATH_CONT -up0q0r2x1y2z1w2 -ir@"$FILE_INCS" -xr@"$FILE_EXCS" -ms=off -snh -snl
 # 7zr.exe a $PATH_COCM $PATH_CONT -ms=off -mx5
-
+#
 Pop-Location

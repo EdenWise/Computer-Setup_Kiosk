@@ -28,10 +28,6 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 #
-## PATH FOR MODULES TO ADD
-#
-$MOD_PTH = ";$env:SCOOP\persist\pwsh\Modules"
-#
 # --- SECTION FOR CONFIGURING ENDS HERE ---
 
 #
@@ -51,18 +47,6 @@ foreach ( $path in $PATHS ) {
   #New-Item -Force -Path env:\$Path -Value "$env:Path"
 }
 #
-## MODULES-PATH SET (FORCED TO USE ~\DOCUMENTS\POWERSHELL\MODULES)
-#
-$PSMOD_PTHS = $env:PSModulePath.Split(";")
-$env:PSModulePath = ""
-foreach ( $psmod_pth in $PSMOD_PTHS ) {
-  if ( Test-Path $psmod_pth/* ) {
-    $env:PSModulePath = $env:PSModulePath + "${psmod_pth};"
-  }
-}
-
-[System.Environment]::SetEnvironmentVariable("PSModulePath", $env:PSModulePath + "$MOD_PTH", "User")
-$env:PSModulePath = [System.Environment]::GetEnvironmentVariable("PSModulePath","User")
 
 ## LINKS RECREATE FOR SCOOP
 #
@@ -107,4 +91,4 @@ foreach ( $app in $APPS_PSBL ) {
 ## SCOOP: SHIMS (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
 #
 $FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
-$FILES_SHIM | foreach { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
+$FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }

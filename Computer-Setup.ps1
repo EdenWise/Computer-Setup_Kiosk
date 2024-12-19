@@ -82,7 +82,7 @@ Set-TimeZone -Id "Pacific Standard Time"
 
 ## FONTS INSTALL <https://stackoverflow.com/q/60972345>
 #
-## List create (of fonts).
+## List create of font locations.
 #
 $FNT_PTHS = @(
   "$env:SCOOP\apps\merriweather\current\*.ttf"
@@ -91,36 +91,11 @@ $FNT_PTHS = @(
   "$env:SCOOP\apps\windows-terminal\current\*.ttf"
 )
 #
-if ( ([Environment]::OSVersion.Version.Build) -ge 22000 ) {
-  $FNT_PTHS[3] = $null
-}
-#
 foreach ( $fnt_pth in $FNT_PTHS ) {
   $FNT_LST += Get-ChildItem -File -Path $fnt_pth -Exclude "static"
 }
 #
-## Fonts register.
-#
-foreach ( $fnt in $FNT_LST ) {
-  #
-  # Font name acquire.
-  #
-  $FNT_DIR = $fnt | Split-Path -Parent
-  $OBJ_SHL = New-Object -ComObject Shell.Application
-  $SHL_DIR = $OBJ_SHL.Namespace($FNT_DIR)
-  $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
-  $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
-  #
-  # Font register
-  #
-  $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
-  $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
-  if ( -not $INSTLLD ) {
-    New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Out-Null
-  }
-}
-#
-## Font (add to font cache?!) <https://stackoverflow.com/a/58100621>
+## Code in C# add for font additions.
 #
 $fontCSharpCode = @'
 using System;
@@ -147,6 +122,31 @@ namespace FontResource
     }
 }
 '@
+#
+## Fonts register.
+#
+foreach ( $fnt in $FNT_LST ) {
+  #
+  # Font name acquire.
+  #
+  $FNT_DIR = $fnt | Split-Path -Parent
+  $OBJ_SHL = New-Object -ComObject Shell.Application
+  $SHL_DIR = $OBJ_SHL.Namespace($FNT_DIR)
+  $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
+  $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
+  #
+  # Font register
+  #
+  $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
+  $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
+  if ( -not $INSTLLD ) {
+    New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Out-Null
+  }
+}
+#
+## Font (add to font cache?!) <https://stackoverflow.com/a/58100621>
+#
+
 
 try   { Add-Type $fontCSharpCode }
 catch {}

@@ -1,9 +1,9 @@
-## COMPUTER SETUP: LIBRARY (ELEVATION: REGULAR USER)
+## COMPUTER SETUP FOR KIOSK (ELEVATION: REGULAR USER)
 #
 
 ## CONFIGURATION: VARIABLES FOR SCRIPT AND ENVIRONMENT CREATE.
 #
-## VARIABLES FOR SCRIPT
+## Variables for script.
 #
 $env:DSP_BRT              = "85"                                    # Display Brightness
 $env:MSE_SNS              = "5"                                     # Mouse Sensitivity
@@ -12,7 +12,7 @@ $env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vect
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
 #
-## VARIABLES FOR ENVIRONMENT (USER)
+## Variables for environment (user).
 #
 $KEY_VALU = @{
   "DSP_BRT"               = $env:DSP_BRT
@@ -22,7 +22,7 @@ $KEY_VALU = @{
   "SCOOP"                 = $env:SCOOP
   "XDG_CONFIG_HOME"       = $env:XDG_CONFIG_HOME }
 #
-## PATHS TO ADD
+## Paths of executable files add to.
 #
 $PATHS = @(                                                        # Paths with executables to add.
   "$env:USERPROFILE\Documents\PowerShell;"
@@ -44,9 +44,7 @@ $KEY_VALU.GetEnumerator() | ForEach-Object {
 foreach ( $path in $PATHS ) {
   [System.Environment]::SetEnvironmentVariable("Path", $env:Path + "$path", "User")
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","User")
-  #New-Item -Force -Path env:\$Path -Value "$env:Path"
 }
-#
 
 ## LINKS RECREATE FOR PROGRAM MANAGER: SCOOP.
 #
@@ -112,7 +110,6 @@ $HOME_DIRS_KEEP = @(
   # "Saved Games"
   # "Searches"
   # "Videos"
-  "WindowsTerminal.lnk"
 )
 foreach ( $home_dir_keep in $HOME_DIRS_KEEP ) { $HOME_DIRS.Remove( "$home_dir_keep" ) }
 Get-ChildItem -Path $env:USERPROFILE -Exclude $HOME_DIRS_KEEP `

@@ -153,7 +153,7 @@ catch {}
 # $VAR_TEST = [FontResource.AddRemoveFonts]
 # if ( -not $VAR_TEST ) {
 # Add-Type $fontCSharpCode
-}
+#}
 
 foreach( $font in $FNT_LST ) {
   Write-Output "Loading $($font.FullName)"

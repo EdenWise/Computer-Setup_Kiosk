@@ -1,7 +1,7 @@
 ## COMPUTER SETUP: LIBRARY (ELEVATION: REGULAR USER)
 #
 
-## CONFIGURATION: Variables for script and environment create.
+## CONFIGURATION: VARIABLES FOR SCRIPT AND ENVIRONMENT CREATE.
 #
 ## VARIABLES FOR SCRIPT
 #
@@ -32,7 +32,6 @@ $PATHS = @(                                                        # Paths with 
 # --- SECTION FOR CONFIGURING ENDS HERE ---
 
 #
-#
 ## ENVIRONMENTAL VARIABLES SET
 #
 $KEY_VALU.GetEnumerator() | ForEach-Object {
@@ -49,16 +48,15 @@ foreach ( $path in $PATHS ) {
 }
 #
 
-## LINKS RECREATE FOR SCOOP
-### Links recreate for Program Manager (Scoop).
+## LINKS RECREATE FOR PROGRAM MANAGER: SCOOP.
 #
 # The only archiving programs ,that I know of, that will preserve junctions
 # and hard links are DISM or wimlib. This portion will recreate them by using
 # the information from the installed applications's manifest.json files.
 #
-## Junctions for `current` application version recreate.
-###  Use directories of newest date (assume they are the newest version).
-###  Simple clobber creation.
+# Junctions for `current` application version recreate.
+#   Use directories of newest date (assume they are the newest version).
+#   Simple clobber creation.
 #
 $APP_DIRS = (Get-ChildItem -Directory -Exclude scoop  -Path $env:SCOOP\apps).FullName
 foreach ( $app_dir in $APP_DIRS ) {
@@ -67,10 +65,10 @@ foreach ( $app_dir in $APP_DIRS ) {
   if ( Test-Path $app_cur ) {
     Remove-Item -Force -Path $app_cur -Recurse }  ## This is dangerous, use only if sure.
     # echo "rm'd: $app_cur"
-  New-Item -Force -ItemType Junction -Path $app_cur -Value $app_new | Select-Object -ExpandProperty FullName }
+  New-Item -Force -ItemType Junction -Path $app_cur -Value $app_new | Select-Object -ExpandProperty FullName
+}
 #
-## Junctions and Hard-Links recreate to persist directory.
-### Array remove item: https://bit.ly/30i5gxC
+## Junctions and Hard-Links recreate to persist directory
 #
 $APPS_PSBL = (Get-ChildItem -Path $env:SCOOP\persist).Name
 foreach ( $app in $APPS_PSBL ) { 
@@ -89,11 +87,6 @@ foreach ( $app in $APPS_PSBL ) {
     }
   }
 }
-
-## SCOOP: SHIMS (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
-#
-$FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
-$FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
 
 ## DIRECTORIES IN HOME TO KEEP VISIBLE
 #
@@ -368,6 +361,14 @@ $CursorRefresh::SystemParametersInfo(0x0057,0,$null,0)
 #         New-ItemProperty -Name LogicalViewMode -value 1  | Get-Item ### Dislpays key after creation
 #     $hkcuBags | gci | ? PSChildName -match '\d+' | gci -s | ? PSChildName -eq $_.PSChildName | Remove-Item
 # }
+
+## FILES
+#
+
+## SCOOP: SHIMS (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
+#
+$FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
+$FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
 
 ## FILES FOR LIBRARY FIX PATH (REPLACE USERPROFILE PART FOR PORTABLE USE).
 #

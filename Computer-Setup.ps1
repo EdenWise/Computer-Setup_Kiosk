@@ -148,9 +148,12 @@ namespace FontResource
 }
 '@
 
-if ( [FontResource.AddRemoveFonts] ) {}
-else { Add-Type $fontCSharpCode }
-Add-Type $fontCSharpCode
+try   { Add-Type $fontCSharpCode }
+catch {}
+# $VAR_TEST = [FontResource.AddRemoveFonts]
+# if ( -not $VAR_TEST ) {
+# Add-Type $fontCSharpCode
+}
 
 foreach( $font in $FNT_LST ) {
   Write-Output "Loading $($font.FullName)"

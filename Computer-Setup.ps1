@@ -1,8 +1,8 @@
 ## COMPUTER SETUP: LIBRARY (ELEVATION: REGULAR USER)
 #
-## VARIABLE CREATION
-### Variables for the environment create (I have put script variables here too).
 
+## CONFIGURATION: Variables for script and environment create.
+#
 ## VARIABLES FOR SCRIPT
 #
 $env:DSP_BRT              = "85"                                    # Display Brightness
@@ -12,7 +12,7 @@ $env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vect
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
 #
-## ENVIRONMENTAL VARIABLES FOR "USER"
+## VARIABLES FOR ENVIRONMENT (USER)
 #
 $KEY_VALU = @{
   "DSP_BRT"               = $env:DSP_BRT

@@ -7,7 +7,7 @@
 $env:DSP_BRT              = "85"                                    # Display Brightness
 $env:MSE_SNS              = "5"                                     # Mouse Sensitivity
 $env:HOME                 = "$env:APPDATA\.config"                  # Home dir for Linux-apps
-$env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector editor settings loc.
+$env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector editor pref loc
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
 #

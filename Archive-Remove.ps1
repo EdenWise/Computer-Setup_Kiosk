@@ -1,5 +1,7 @@
-## Files remove that were part of archive.
-### Some kiosk managers may leave files on the computer. This script will remove them with the files specified to the script "Archive-Create.ps1".
+## FILES REMOVE THAT WERE PART OF ARCHIVE.
+###
+### Some kiosk managers may leave files on the computer. This script will remove them with the 
+### files specified to the script "Archive-Create.ps1".
 
 Push-Location $env:USERPROFILE
 

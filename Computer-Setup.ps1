@@ -126,7 +126,7 @@ namespace FontResource
 try   { Add-Type $fontCSharpCode }
 catch {}
 #
-## Fonts register.
+## Fonts register and (add to font cache?!). <https://stackoverflow.com/a/58100621>
 #
 foreach ( $fnt in $FNT_LST ) {
   #
@@ -138,18 +138,21 @@ foreach ( $fnt in $FNT_LST ) {
   $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
   $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
   #
-  # Font register and (add to font cache?!). <https://stackoverflow.com/a/58100621>
   #
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) {
+    #
+    # Font register.
+    #
     New-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name "$FNT_NME (TrueType)" -PropertyType String -Value "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt.Name" -Force | Out-Null
+    #
+    # Font (add to font cache?!).
     #
     [FontResource.AddRemoveFonts]::AddFont($font.FullName) | Out-Null
     if ( $? ) { Write-Output "Loading $($font.FullName)" }
   }
 }
-#
 
 ## KEYBOARD: NUMLOCK ON AND LEAVE ON, HOTKEY FOR INPUT LANGUAGE SWITCHING DISABLE
 ## https://superuser.com/a/813818/532630

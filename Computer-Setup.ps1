@@ -29,6 +29,15 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 #
+## Fonts to load.
+#
+$FNT_PTHS = @(
+  "$env:SCOOP\apps\merriweather\current\*.ttf"
+  "$env:SCOOP\apps\roboto-slab\current\*.ttf"
+  "$env:SCOOP\apps\roboto\current\*.ttf"
+  "$env:SCOOP\apps\windows-terminal\current\*.ttf"
+)
+#
 # --- SECTION FOR CONFIGURING ENDS HERE ---
 
 #
@@ -114,7 +123,7 @@ $HOME_DIRS_KEEP = @(
 foreach ( $home_dir_keep in $HOME_DIRS_KEEP ) { $HOME_DIRS.Remove( "$home_dir_keep" ) }
 Get-ChildItem -Path $env:USERPROFILE -Exclude $HOME_DIRS_KEEP `
   | ForEach-Object { $_.Attributes = $_.Attributes -bor [System.IO.FileAttributes]::Hidden }
-
+#
 Pop-Location
 
 ## APPLICATIONS REGISTER AND FTA'S ASSOCIATE
@@ -166,13 +175,6 @@ Set-TimeZone -Id "Pacific Standard Time"
 ## FONTS INSTALL <https://stackoverflow.com/q/60972345>
 #
 ## List create of font locations.
-#
-$FNT_PTHS = @(
-  "$env:SCOOP\apps\merriweather\current\*.ttf"
-  "$env:SCOOP\apps\roboto-slab\current\*.ttf"
-  "$env:SCOOP\apps\roboto\current\*.ttf"
-  "$env:SCOOP\apps\windows-terminal\current\*.ttf"
-)
 #
 foreach ( $fnt_pth in $FNT_PTHS ) {
   $FNT_LST += Get-ChildItem -File -Path $fnt_pth -Exclude "static"

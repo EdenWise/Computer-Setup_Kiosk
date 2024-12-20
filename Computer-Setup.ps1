@@ -132,21 +132,15 @@ Pop-Location
 # Variables Inside Single Quotes: https://stackoverflow.com/a/32127808/4515565
 # Loops with multiple arrays:     https://stackoverflow.com/a/25192032/4515565
 #
-$PROGRAMS = @("code.cmd","inkscape.exe","floorp.exe")
-$PATHS    = @(
+$APPS_REG    = @(
   "$env:SCOOP\apps\vscode\current\bin\code.cmd"
   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe"
-  "$env:SCOOP\apps\floorp-libportable\current\core\floorp.exe"
-  # "$env:SCOOP\apps\floorp\current\floorp.exe"
-  # "$env:SCOOP\apps\waterfox-portable\current\waterfox.exe"
+  "$env:SCOOP\apps\zen-libportable\current\zen\zen.exe"
 )
 #
-for ( $i = 0 ; $i -lt $PROGRAMS.Length ; $i++ ) {
-  $program = $PROGRAMS[$i]
-  $path    = $PATHS[$i]
-  New-Item         -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" `
-    | Out-Null
-  Set-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$path `"%1`"" }
+foreach ( $app-reg in $APPS_REG ) {
+  $program = $app-reg | Split-Path -Leaf
+  New-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$app-reg `"%1`"" }
 #
 $EXTENSIONS = ( ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml" )
 foreach ( $extension in $EXTENSIONS ) {
@@ -361,10 +355,9 @@ $CursorRefresh::SystemParametersInfo(0x0057,0,$null,0)
 #     $hkcuBags | gci | ? PSChildName -match '\d+' | gci -s | ? PSChildName -eq $_.PSChildName | Remove-Item
 # }
 
-## FILES
+## FILES EDIT
 #
-
-## SCOOP: SHIMS (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
+# Scoop: shims: path replace with current path.
 #
 $FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
 $FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
@@ -398,19 +391,6 @@ foreach ( $gitconfig in $GITCONFIGS ) {
 #
 ( Get-Content $( Get-PSReadLineOption ).HistorySavePath ) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" | Set-Content $( Get-PSReadLineOption ).HistorySavePath
 #
-# WEB BROWSER
-#
-# $FILES_INIS = "$env:SCOOP\apps\floorp\Profiles\AppData\Floorp\profiles.ini"
-# Write-Output "====="
-# Get-Content $FILES_INIS
-# Write-Output "====="
-# $FILES_INIS | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" }
-# Write-Output "====="
-# $ANSWER = Read-Host "Floorp's profile.ini replace with new PATH? (y/n)"
-# if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-#  $FILES_INIS | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" `
-#   | Set-Content $_ }
-# }
 #
 # SCOOP: INSTALLS THAT ARE LOCAL CHANGE PATH IN install.json FOR PORTABILITY.
 #

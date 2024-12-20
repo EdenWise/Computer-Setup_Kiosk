@@ -80,7 +80,7 @@ foreach ( $app_dir in $APP_DIRS ) {
 $APPS_PSBL = (Get-ChildItem -Path $env:SCOOP\persist).Name
 foreach ( $app in $APPS_PSBL ) { 
   if ( Test-Path $env:SCOOP\apps\$app ) {  # Use persist directory name and test if app is installed
-    $MNFS_JSON = Get-Content -Path $env:SCOOP\apps\$app\current\manifest.json | ConvertFrom-Json
+    $MNFS_JSON = Get-Content -Path $env:SCOOP\apps\$app\current\manifest.json | Out-String | ConvertFrom-Json
     $app_prsts = $MNFS_JSON.persist
     foreach ( $prst in $app_prsts ) {
       if ( Test-Path -PathType Container $env:SCOOP\persist\$app\$prst ) {

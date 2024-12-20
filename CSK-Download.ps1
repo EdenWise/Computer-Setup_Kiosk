@@ -17,4 +17,4 @@ foreach ( $uri in $URIS ) {
   # Start-BitsTransfer -Asynchronous -Source $uri -Destination "$PWD\$(Split-Path -Leaf $uri)"
 }
 
-Write-Output "curl.exe `"https://ice-eu-107586.icedrive.io/download?p=HTK5Vb1HNqJ9uekGPrzJ9s.X.cz1gRZ.orQVxQAbM67doxp0Zf.8ofhOmWN5AtsjKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWPMUEJw4RHIzVjN5oYALBL6WWAJykFk7n8OTZruEgI7pGGkFoYphwd_GcVwjbWcVcFNtkit57.qm0dw7wXclI25sDhZ42BVO2JdPJAXsqsRhg--`" -Lo Files_Library.7z"
+Write-Output "curl.exe `"https://ice-eu-107586.icedrive.io/download?p=FZePyM6_BxCt4Y6xH1f.rY7.KTrRa2Uaao05U_jNZ1Tdoxp0Zf.8ofhOmWN5AtsjKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWPMUEJw4RHIzVjN5oYALBL6WWAJykFk7n8OTZruEgI7pGGkFoYphwd_GcVwjbWcVcFNtkit57.qm0dw7wXclI25sDhZ42BVO2JdPJAXsqsRhg--`" -Lo Files_Library.wim"

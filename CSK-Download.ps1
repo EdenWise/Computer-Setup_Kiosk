@@ -3,7 +3,6 @@
 ### Start-BitsTransfer -Asynchronous -Source $uri -Destination "$PWD\$(Split-Path -Leaf $uri)"
 ### curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
 
-
 $URIS = @(
   "https://7-zip.org/a/7zr.exe"
   #

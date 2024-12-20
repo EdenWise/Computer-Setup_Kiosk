@@ -234,8 +234,8 @@ foreach ( $fnt in $FNT_LST ) {
     #
     # Font (add to font cache?!).
     #
-    [FontResource.AddRemoveFonts]::AddFont($font.FullName) | Out-Null
-    if ( $? ) { Write-Output "Loading $($font.FullName)" }
+    [FontResource.AddRemoveFonts]::AddFont($fnt.FullName) | Out-Null
+    if ( $? ) { Write-Output "Loading $($fnt.FullName)" }
   }
 }
 

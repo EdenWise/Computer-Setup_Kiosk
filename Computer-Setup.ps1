@@ -138,9 +138,10 @@ $APPS_REG    = @(
   "$env:SCOOP\apps\zen-libportable\current\zen\zen.exe"
 )
 #
-foreach ( $app-reg in $APPS_REG ) {
-  $program = $app-reg | Split-Path -Leaf
-  New-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$app-reg `"%1`"" }
+foreach ( $app_reg in $APPS_REG ) {
+  $program = $app_reg | Split-Path -Leaf
+  New-Item         -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" | Out-Null
+  New-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$app_reg `"%1`"" }
 #
 $EXTENSIONS = ( ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml" )
 foreach ( $extension in $EXTENSIONS ) {

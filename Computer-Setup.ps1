@@ -141,7 +141,8 @@ $APPS_REG    = @(
 foreach ( $app_reg in $APPS_REG ) {
   $program = $app_reg | Split-Path -Leaf
   New-Item         -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" | Out-Null
-  New-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$app_reg `"%1`"" }
+  (New-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$app_reg `"%1`"").PSPath
+}
 #
 $EXTENSIONS = ( ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml" )
 foreach ( $extension in $EXTENSIONS ) {
@@ -149,7 +150,7 @@ foreach ( $extension in $EXTENSIONS ) {
 #
 $EXTENSIONS = ( "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https" )
 foreach ( $extension in $EXTENSIONS ) {
-  SetUserFTA.exe $extension Applications\floorp.exe }
+  SetUserFTA.exe $extension Applications\zen.exe }
 #
 $EXTENSIONS = ( ".svg" )
 foreach ( $extension in $EXTENSIONS ) {

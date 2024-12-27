@@ -130,7 +130,7 @@ Pop-Location
 $APPS_REG    = @(
   "$env:SCOOP\apps\vscode\current\bin\code.cmd"
   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe"
-  "$env:SCOOP\apps\zen-libportable\current\zen\zen.exe"
+  "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe"
 )
 #
 foreach ( $app_reg in $APPS_REG ) {
@@ -145,7 +145,7 @@ foreach ( $extension in $EXTENSIONS ) {
 #
 $EXTENSIONS = ( "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https" )
 foreach ( $extension in $EXTENSIONS ) {
-  SetUserFTA.exe $extension Applications\zen.exe }
+  SetUserFTA.exe $extension Applications\waterfox.exe }
 #
 $EXTENSIONS = ( ".svg" )
 foreach ( $extension in $EXTENSIONS ) {

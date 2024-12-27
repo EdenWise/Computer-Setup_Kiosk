@@ -29,6 +29,28 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 #
+## Directories in home to hide.
+#
+$HOME_HIDE_DIRS = @(
+  ".config"
+  ".ms-ad"
+  ".vscode"
+  "3D Objects"
+  "Contacts"
+  # "Desktop"  # Protected and remains visible.
+  # "Documents"
+  # "Downloads"
+  "Favorites"
+  "Links"
+  "Music"
+  # "OneDrive"
+  # "Pictures"
+  # "Program-Manager"
+  "Saved Games"
+  "Searches"
+  "Videos"
+)
+#
 ## Fonts to load.
 #
 $FNT_PTHS = @(
@@ -112,14 +134,12 @@ $HOME_HIDE_DIRS = @(
   "Videos"
 )
 #
-Push-Location $env:USERPROFILE
-#
-$HOME_DIRS = ( Get-ChildItem -Directory -Path $env:USERPROFILE ).FullName
 foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
-  Get-ChildItem -Path $env:USERPROFILE -Exclude $HOME_DIRS_KEEP `
-  | ForEach-Object { $_.Attributes = $_.Attributes -bor [System.IO.FileAttributes]::Hidden }
+  if ( Test-Path $env:USERPROFILE\$home_hide_dir ) {
+    (Get-Item -Force $env:USERPROFILE\$home_hide_dir).Attributes="Hidden"
+  }
+}
 #
-Pop-Location
 
 ## APPLICATIONS REGISTER AND FTA'S ASSOCIATE
 #

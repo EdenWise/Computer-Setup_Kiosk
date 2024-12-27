@@ -114,26 +114,6 @@ foreach ( $app in $APPS_PSBL ) {
 
 ## DIRECTORIES IN HOME TO HIDE.
 #
-$HOME_HIDE_DIRS = @(
-  ".config"
-  ".ms-ad"
-  ".vscode"
-  "3D Objects"
-  "Contacts"
-  # "Desktop"  # Protected and remains visible.
-  # "Documents"
-  # "Downloads"
-  "Favorites"
-  "Links"
-  "Music"
-  # "OneDrive"
-  # "Pictures"
-  # "Program-Manager"
-  "Saved Games"
-  "Searches"
-  "Videos"
-)
-#
 foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
   if ( Test-Path $env:USERPROFILE\$home_hide_dir ) {
     (Get-Item -Force $env:USERPROFILE\$home_hide_dir).Attributes="Hidden"

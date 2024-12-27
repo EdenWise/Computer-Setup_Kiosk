@@ -55,15 +55,10 @@ foreach ( $path in $PATHS ) {
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
-## LINKS RECREATE FOR PROGRAM MANAGER: SCOOP.
+## LINKS RECREATE FOR PROGRAM MANAGER: SCOOP
+### THE ONLY ARCHIVE PROGRAMS ABLE TO PRESERVE THEM (THAT I KNOW OF) ARE DISM AND WIMLIB.
 #
-# The only archiving programs ,that I know of, that will preserve junctions
-# and hard links are DISM or wimlib. This portion will recreate them by using
-# the information from the installed applications's manifest.json files.
-#
-# Junctions for `current` application version recreate.
-#   Use directories of newest date (assume they are the newest version).
-#   Simple clobber creation.
+# Junctions recreate for application `current` directories (use those of newest date [assume they are the newest version], simple clobber creation).
 #
 $APP_DIRS = (Get-ChildItem -Directory -Exclude scoop  -Path $env:SCOOP\apps).FullName
 foreach ( $app_dir in $APP_DIRS ) {
@@ -75,7 +70,7 @@ foreach ( $app_dir in $APP_DIRS ) {
   New-Item -Force -ItemType Junction -Path $app_cur -Value $app_new | Select-Object -ExpandProperty FullName
 }
 #
-## Junctions and Hard-Links recreate to persist directory
+## Junctions and Hard-Links recreate to persist directory (using the application's manifest).
 #
 $APPS_PSBL = (Get-ChildItem -Path $env:SCOOP\persist).Name
 foreach ( $app in $APPS_PSBL ) { 

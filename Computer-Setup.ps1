@@ -41,21 +41,21 @@ $FNT_PTHS = @(
 # --- SECTION FOR CONFIGURING ENDS HERE ---
 
 #
-## ENVIRONMENTAL VARIABLES SET
+## ENVIRONMENTAL VARIABLES SET.
 #
 $KEY_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
 }
 #
-## PATHS SET
+## PATHS SET.
 #
 foreach ( $path in $PATHS ) {
   [System.Environment]::SetEnvironmentVariable("Path", $env:Path + "$path", "User")
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
-## LINKS RECREATE FOR PROGRAM MANAGER: SCOOP
+## LINKS RECREATE FOR PROGRAM MANAGER (SCOOP).
 ### THE ONLY ARCHIVE PROGRAMS ABLE TO PRESERVE THEM (THAT I KNOW OF) ARE DISM AND WIMLIB.
 #
 # Junctions recreate for application `current` directories (use those of newest date [assume they are the newest version], simple clobber creation).
@@ -90,33 +90,33 @@ foreach ( $app in $APPS_PSBL ) {
   }
 }
 
-## DIRECTORIES IN HOME TO KEEP VISIBLE
+## DIRECTORIES IN HOME TO HIDE.
+#
+$HOME_HIDE_DIRS = @(
+  ".config"
+  ".ms-ad"
+  ".vscode"
+  "3D Objects"
+  "Contacts"
+  # "Desktop"  # Protected and remains visible.
+  # "Documents"
+  # "Downloads"
+  "Favorites"
+  "Links"
+  "Music"
+  # "OneDrive"
+  # "Pictures"
+  # "Program-Manager"
+  "Saved Games"
+  "Searches"
+  "Videos"
+)
 #
 Push-Location $env:USERPROFILE
 #
-[System.Collections.ArrayList]`
-$HOME_DIRS      =  ( Get-ChildItem -Directory -Path $env:USERPROFILE ).Name
-$HOME_DIRS_KEEP = @(
-  # ".config"
-  # ".ms-ad"
-  # ".vscode"
-  # "3D Objects"
-  # "Contacts"
-  "Desktop"  # Protected and remains visible.
-  "Documents"
-  "Downloads"
-  # "Favorites"
-  # "Links"
-  # "Music"
-  "OneDrive"
-  "Pictures"
-  "Program-Manager"
-  # "Saved Games"
-  # "Searches"
-  # "Videos"
-)
-foreach ( $home_dir_keep in $HOME_DIRS_KEEP ) { $HOME_DIRS.Remove( "$home_dir_keep" ) }
-Get-ChildItem -Path $env:USERPROFILE -Exclude $HOME_DIRS_KEEP `
+$HOME_DIRS = ( Get-ChildItem -Directory -Path $env:USERPROFILE ).FullName
+foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
+  Get-ChildItem -Path $env:USERPROFILE -Exclude $HOME_DIRS_KEEP `
   | ForEach-Object { $_.Attributes = $_.Attributes -bor [System.IO.FileAttributes]::Hidden }
 #
 Pop-Location

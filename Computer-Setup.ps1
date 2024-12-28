@@ -1,4 +1,4 @@
-## COMPUTER SETUP ON A KIOSK (ELEVATION: REGULAR USER)
+## COMPUTER SETUP ON A KIOSK (FOR A REGULAR USER).
 #
 
 ## CONFIGURATION: VARIABLES FOR SCRIPT AND ENVIRONMENT CREATE.
@@ -121,11 +121,7 @@ foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
 }
 #
 
-## APPLICATIONS REGISTER AND FTA'S ASSOCIATE
-#
-# SetUserFTA:                     https://setuserfta.com
-# Variables Inside Single Quotes: https://stackoverflow.com/a/32127808/4515565
-# Loops with multiple arrays:     https://stackoverflow.com/a/25192032/4515565
+## APPLICATIONS REGISTER AND FTA'S ASSOCIATE <https://setuserfta.com>
 #
 $APPS_REG    = @(
   "$env:SCOOP\apps\vscode\current\bin\code.cmd"
@@ -454,3 +450,6 @@ Pop-Location
 
 # Set-ItemProperty HKCU:\Environment\ -Name INKSCAPE_PROFILE_DIR -Value "$env:USERPROFILE\AppData\Roaming\inkscape"
 # By default set to %appdata%/inkscape... did I bother for certain reason??
+
+# Variables Inside Single Quotes: https://stackoverflow.com/a/32127808/4515565
+# Loops with multiple arrays:     https://stackoverflow.com/a/25192032/4515565

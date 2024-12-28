@@ -43,7 +43,7 @@ $LIST_INCS = @(
   "Program-Manager"
   #
   "tasks.code-workspace"
-) | Out-File -Force $FILE_INCS
+) | Out-File -Encoding utf8 -Force $FILE_INCS
 #
 $LIST_EXCS = @(
   "desktop.ini"
@@ -52,7 +52,7 @@ $LIST_EXCS = @(
   "Documents\My Shapes"
   "Documents\My Videos"
   "~\Downloads\"
-) | Out-File -Force $FILE_EXCS
+) | Out-File -Encoding utf8 -Force $FILE_EXCS
 #
 # LIST OF JUNCTIONS/SOFT-LINKS CREATE AND ADD TO LIST FOR EXCLUDES.
 #

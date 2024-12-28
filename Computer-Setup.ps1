@@ -123,19 +123,19 @@ foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
 
 ## APPLICATIONS REGISTER AND FTA'S ASSOCIATE <https://setuserfta.com>
 #
-# $APPS_REG    = @{
+# $APP_REGS    = @{
 #   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe" = ".svg"
 #   "$env:SCOOP\apps\vscode\current\bin\code.cmd" = ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml"
 #   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe" = "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https"
 # }
 #
-$APPS_REG    = @(
+$APP_REGS    = @(
   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe"
   "$env:SCOOP\apps\vscode\current\bin\code.cmd"
   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe"
 )
 #
-foreach ( $app_reg in $APPS_REG ) {
+foreach ( $app_reg in $APP_REGS ) {
   $program = $app_reg | Split-Path -Leaf
   New-Item -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" | Out-Null
   New-ItemProperty -Force -Path "HKCU:\SOFTWARE\Classes\Applications\$program\shell\open\command\" -Name "(default)" -Value "$app_reg `"%1`"" | Select-Object -ExpandProperty PSPath

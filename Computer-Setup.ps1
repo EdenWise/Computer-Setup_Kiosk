@@ -117,15 +117,24 @@ foreach ( $app in $APPS_PSBL ) {
 ## CONFIGURATIONS EDIT TO USE CURRENT PATH.
 #
 $CNFGS = @(
-  # "$env:SCOOP\apps\*\current\install.json"      ## looks to be deprecated.
-  "$env:HOME\.gitconfig"                          ## C:/path/to/ or C:\\path\\to
-  "$env:SCOOP\persist\git-persist\etc\gitconfig"  ## ''
-  "$env:SCOOP\shims\*"                            ## 
-  "$env:USERPROFILE\Program-Manager\persist\pwsh\PSReadLine\ConsoleHost_history.txt"
-  "$env:USERPROFILE\Program-Manager\persist\vscode\data\user-data\User\settings.json"
+  # "$env:SCOOP\apps\*\current\install.json"                    ## looks to be deprecated.
+  "$env:HOME\.gitconfig"                                        ## C:/User/.../ or C:\\User\\...
+  "$env:SCOOP\persist\git-persist\etc\gitconfig"                ## 
+  "$env:SCOOP\shims\*"                                          ## C:\User\...\
+  "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  ## C:\User\...\
+  "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" ## C:\\User\\...\\
   #
   #
 )
+# Test for one of three types:
+#
+foreach ( $cnfg in $CNFGS ) {
+  Select-String -SimpleMatch "$env:USERPROFILE" -Path
+}
+
+
+$ENV_USERPROFILE_LINUX = ($env:USERPROFILE) -replace "\\","/"  # REPLACE \ WITH / FOR LINUX
+#
 # Scoop: shims: path replace with current path.
 #
 $FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
@@ -133,8 +142,6 @@ $FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$
 
 ## FILES FOR LIBRARY FIX PATH (REPLACE USERPROFILE PART FOR PORTABLE USE).
 #
-$ENV_USERPROFILE = $env:USERPROFILE
-$ENV_USERPROFILE_LINUX = ($ENV_USERPROFILE) -replace "\\","/"  # REPLACE \ WITH / FOR LINUX
 #
 #
 # GIT (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)

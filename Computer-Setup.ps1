@@ -117,21 +117,19 @@ foreach ( $app in $APPS_PSBL ) {
 ## CONFIGURATIONS EDIT TO USE CURRENT PATH.
 #
 $CNFGS = @(
-  # "$env:SCOOP\apps\*\current\install.json"                    ## looks to be deprecated.
   "$env:HOME\.gitconfig"                                        ## C:/User/.../ or C:\\User\\...
+  # "$env:SCOOP\apps\*\current\install.json"                    ## looks to be deprecated.
   "$env:SCOOP\persist\git-persist\etc\gitconfig"                ## 
   "$env:SCOOP\shims\*"                                          ## C:\User\...\
   "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  ## C:\User\...\
   "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" ## C:\\User\\...\\
-  #
-  #
 )
 # Test for one of three types:
 #
 foreach ( $cnfg in $CNFGS ) {
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-    Select-String -SimpleMatch "$env:USERPROFILE" -Path $cnfg
+    #Select-String -SimpleMatch "$env:USERPROFILE" -Path $cnfg
 }
 
 

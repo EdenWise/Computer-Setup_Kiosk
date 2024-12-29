@@ -129,6 +129,8 @@ $CNFGS = @(
 # Test for one of three types:
 #
 foreach ( $cnfg in $CNFGS ) {
+  # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
+  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
   Select-String -SimpleMatch "$env:USERPROFILE" -Path
 }
 

@@ -124,9 +124,11 @@ $CNFGS = @(
   "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  ## C:\User\...\
   "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" ## C:\\User\\...\\
 )
-# Test for one of three types:
 #
 foreach ( $cnfg in $CNFGS ) {
+  # Test for one of three types:
+  # Simple clobber replacement... please be careful with sensitive files.
+  
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
     #Select-String -SimpleMatch "$env:USERPROFILE" -Path $cnfg

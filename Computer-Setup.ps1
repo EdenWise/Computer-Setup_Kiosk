@@ -62,13 +62,72 @@ $FNT_PTHS = @(
 #
 # --- SECTION FOR CONFIGURING ENDS HERE ---
 
+
+## FILES EDIT
+#
+# Scoop: shims: path replace with current path.
+#
+$FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
+$FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
+
+## FILES FOR LIBRARY FIX PATH (REPLACE USERPROFILE PART FOR PORTABLE USE).
+#
+$ENV_USERPROFILE = $env:USERPROFILE
+$ENV_USERPROFILE_LINUX = ($ENV_USERPROFILE) -replace "\\","/"  # REPLACE \ WITH / FOR LINUX
+#
+# C:\Users\RMLO\Program-Manager\persist\vscode\data\user-data\User\settings.json
+#
+# GIT (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
+#
+$GITCONFIGS = @(
+  "$env:HOME\.gitconfig"
+  "$env:SCOOP\persist\git-persist\etc\gitconfig"
+)
+#
+foreach ( $gitconfig in $GITCONFIGS ) {
+  Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
+  # -Raw
+  Write-Output "====="
+  (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
+  Write-Output "====="
+  #
+  # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
+  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
+    (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/" `
+       | Set-Content $gitconfig
+}
+#
+# POWERSHELL (COMMENTED BECAUSE I USUALLY USE ENV:USERPROFILE)
+#
+( Get-Content $( Get-PSReadLineOption ).HistorySavePath ) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" | Set-Content $( Get-PSReadLineOption ).HistorySavePath
+#
+#
+# SCOOP: INSTALLS THAT ARE LOCAL CHANGE PATH IN install.json FOR PORTABILITY.
+#
+# $ENV_USERPROFILE_SCOOP = ($ENV:USERPROFILE) -replace "\\","\\"
+# $FILES_INST = (Get-ChildItem -File -Path $env:SCOOP\manifests-local\*.json).BaseName
+# #
+# foreach ( $file in $FILES_INST ) {
+#   (Get-Content "$env:SCOOP\apps\$file\current\install.json") -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" }
+# #
+# $ANSWER = Read-Host "Scoop replace local install.jsons with new PATH? (y/n)"
+# if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
+#   foreach ( $file in $FILES_INST ) {
+#     (Get-Content "$env:SCOOP\apps\$file\current\install.json") -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" `
+#     | Set-Content "$env:SCOOP\apps\$file\current\install.json" }
+#   # $file | ForEach-Object { (Get-Content $_) -replace "C:\\\\Users(\\\\).*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" | Set-Content $_ 
+# }
+
+
 #
 ## ENVIRONMENTAL VARIABLES SET.
 #
 $KEY_VALU.GetEnumerator() | ForEach-Object {
   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
-  New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)"
+  New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null
+  Write-Output "$($_.Key) : $($_.Value)"
 }
+  Write-Output "====="
 #
 ## PATHS SET.
 #
@@ -129,6 +188,10 @@ foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
 #   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe" = "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https"
 # }
 #
+##
+# $APP_REGS.GetEnumerator().ForEach({ foreach ( $value in $($_.Value) ) { echo "$($_.Key)---$value"} })
+##
+#
 $APP_REGS    = @(
   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe"
   "$env:SCOOP\apps\vscode\current\bin\code.cmd"
@@ -160,10 +223,11 @@ Set-ItemProperty -Path "HKCU:\Control Panel\International\" -Name sTimeFormat -V
 Set-ItemProperty -Path "HKCU:\Control Panel\International\" -Name sShortDate  -Value "yyMMdd ddd"
 Set-ItemProperty -Path "HKCU:\Control Panel\International\" -Name sLongDate   -Value "yyyy, MMMM dd, dddd"
 #
-Set-TimeZone -Id "Pacific Standard Time"
-#
-# tzutil.exe /s "Pacific Standard Time"
 # Set-ItemProperty -Path "HKCU:\Control Panel\International\" -Name sShortDate  -Value "yy.MM.dd.ddd"
+#
+try   { Set-TimeZone -Id "Pacific Standard Time"
+        tzutil.exe /s "Pacific Standard Time" }
+catch {}
 
 ## FONTS INSTALL <https://stackoverflow.com/q/60972345>
 #
@@ -255,7 +319,10 @@ Volume_Set -Volume 8
 
 ## DISPLAY: ADJUST BRIGHTNESS AND COLOR
 #
-Invoke-CimMethod -InputObject $(Get-CimInstance -Namespace root/WMI -ClassName WmiMonitorBrightnessMethods) -MethodName WmiSetBrightness -Arguments @{Timeout=10;Brightness=$env:DSP_BRT} | Out-Null
+$INP_OBJ = Get-CimInstance -Namespace root/WMI -ClassName WmiMonitorBrightnessMethods -ErrorAction SilentlyContinue
+if ( $INP_OBJ ) {
+  Invoke-CimMethod -InputObject $(Get-CimInstance -Namespace root/WMI -ClassName WmiMonitorBrightnessMethods) -MethodName WmiSetBrightness -Arguments @{Timeout=10;Brightness=$env:DSP_BRT} -ErrorAction SilentlyContinue
+}
 
 #
 # Copy-Item -Force "$env:USERPROFILE\Documents\= Computer Setup =\Profile_Display_Pima_12.icc" "C:\Windows\System32\spool\drivers\color\"
@@ -352,59 +419,6 @@ $CursorRefresh::SystemParametersInfo(0x0057,0,$null,0)
 #         New-ItemProperty -Name IconSize        -value 16 |
 #         New-ItemProperty -Name LogicalViewMode -value 1  | Get-Item ### Dislpays key after creation
 #     $hkcuBags | gci | ? PSChildName -match '\d+' | gci -s | ? PSChildName -eq $_.PSChildName | Remove-Item
-# }
-
-## FILES EDIT
-#
-# Scoop: shims: path replace with current path.
-#
-$FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
-$FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
-
-## FILES FOR LIBRARY FIX PATH (REPLACE USERPROFILE PART FOR PORTABLE USE).
-#
-$ENV_USERPROFILE = $env:USERPROFILE
-$ENV_USERPROFILE_LINUX = ($ENV_USERPROFILE) -replace "\\","/"  # REPLACE \ WITH / FOR LINUX
-#
-# C:\Users\RMLO\Program-Manager\persist\vscode\data\user-data\User\settings.json
-#
-# GIT (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
-#
-$GITCONFIGS = @(
-  "$env:HOME\.gitconfig"
-  "$env:SCOOP\persist\git-persist\etc\gitconfig" )
-#
-foreach ( $gitconfig in $GITCONFIGS ) {
-  Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
-  # -Raw
-  Write-Output "====="
-  (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
-  Write-Output "====="
-  #
-  $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-  if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-    (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/" `
-      | Set-Content $gitconfig } }
-#
-# POWERSHELL (COMMENTED BECAUSE I USUALLY USER ENV:USERPROFILE)
-#
-( Get-Content $( Get-PSReadLineOption ).HistorySavePath ) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" | Set-Content $( Get-PSReadLineOption ).HistorySavePath
-#
-#
-# SCOOP: INSTALLS THAT ARE LOCAL CHANGE PATH IN install.json FOR PORTABILITY.
-#
-# $ENV_USERPROFILE_SCOOP = ($ENV:USERPROFILE) -replace "\\","\\"
-# $FILES_INST = (Get-ChildItem -File -Path $env:SCOOP\manifests-local\*.json).BaseName
-# #
-# foreach ( $file in $FILES_INST ) {
-#   (Get-Content "$env:SCOOP\apps\$file\current\install.json") -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" }
-# #
-# $ANSWER = Read-Host "Scoop replace local install.jsons with new PATH? (y/n)"
-# if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-#   foreach ( $file in $FILES_INST ) {
-#     (Get-Content "$env:SCOOP\apps\$file\current\install.json") -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" `
-#     | Set-Content "$env:SCOOP\apps\$file\current\install.json" }
-#   # $file | ForEach-Object { (Get-Content $_) -replace "C:\\\\Users(\\\\).*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" | Set-Content $_ 
 # }
 
 

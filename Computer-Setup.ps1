@@ -132,7 +132,8 @@ foreach ( $cnfg in $CNFGS ) {
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
     #Select-String -SimpleMatch "$env:USERPROFILE" -Path $cnfg
-  Get-Content
+  # $env_userprofile = ($env:USERPROFILE) -replace "\\","\\"
+  # Get-Content $file | foreach { $_ -replace "asdfsdf","ASDFSDF" } | Set-Content $file
 }
 
 

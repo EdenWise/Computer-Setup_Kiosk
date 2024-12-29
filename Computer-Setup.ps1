@@ -116,14 +116,14 @@ foreach ( $app in $APPS_PSBL ) {
 
 ## CONFIGURATIONS EDIT TO USE CURRENT PATH.
 #
-$CNGS = @(
-  "$env:USERPROFILE\Program-Manager\persist\vscode\data\user-data\User\settings.json"
-  "$env:SCOOP\shims\*"
-  "$env:HOME\.gitconfig"
-  "$env:SCOOP\persist\git-persist\etc\gitconfig"
+$CNFGS = @(
+  # "$env:SCOOP\apps\*\current\install.json"      ## looks to be deprecated.
+  "$env:HOME\.gitconfig"                          ## C:/path/to/ or C:\\path\\to
+  "$env:SCOOP\persist\git-persist\etc\gitconfig"  ## ''
+  "$env:SCOOP\shims\*"                            ## 
   "$env:USERPROFILE\Program-Manager\persist\pwsh\PSReadLine\ConsoleHost_history.txt"
+  "$env:USERPROFILE\Program-Manager\persist\vscode\data\user-data\User\settings.json"
   #
-  "$env:SCOOP\apps\$file\current\install.json"
   #
 )
 # Scoop: shims: path replace with current path.

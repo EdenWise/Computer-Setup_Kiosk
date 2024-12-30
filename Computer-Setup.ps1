@@ -116,21 +116,34 @@ foreach ( $app in $APPS_PSBL ) {
 
 ## CONFIGURATIONS EDIT TO USE CURRENT PATH.
 #
-$CNFGS = @(
-  # "$env:SCOOP\apps\*\current\install.json"                    ## looks to be deprecated.
-  "$env:SCOOP\persist\git-persist\etc\gitconfig"                ## 
-  "$env:SCOOP\shims\*"                                          ## C:\User\...\
-  "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  ## C:\User\...\
-  "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" ## C:\\User\\...\\
+$CONFIGS = @{
+  #
   # Path types:
-  # "W" = "C:\Users\$env:USERNAME\path\..."      # Windows' backslashes.
-  # "L" = "C:/Users/$env:USERNAME/path/..."      # Linux's  forward slashes.
-  # "2" = "C:\\Users\\$env:USERNAME\\path\\..."  # Windows double backslash (for regex's).
-  "L" = "$env:HOME\.gitconfig"                                        ## C:/User/.../ or C:\\User\\...
-  "A" = ""
-)
+  #
+  # "C:\Users\$env:USERNAME\path\..."     = "W"   # Windows backslashes.
+  # "C:/Users/$env:USERNAME/path/..."     = "L"   # Linux   forward slashes.
+  # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Windows double backslash (for regex's).
+  #
+  "L" = "$env:HOME\.gitconfig"                                        = "L"
+  "L" = "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
+  "W" = "$env:SCOOP\shims\*"                                          = "W"
+  "W" = "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
+  "2" = "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
+  #
+  # "$env:SCOOP\apps\*\current\install.json"                            = "W"   # deprecated?!
+  #
+}
 #
-foreach ( $cnfg in $CNFGS ) {
+
+$CONFIGS.GetEnumerator() | ForEach-Object {}
+#   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
+#   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null
+#   Write-Output "$($_.Key) : $($_.Value)"
+# }
+
+$APP_REGS.GetEnumerator().ForEach({ foreach ( $value in $($_.Value) ) { echo "$($_.Key)---$value"} })
+
+foreach ( $cnfg in $CONFIGS ) {
   # Simple clobber replacement... please be careful with sensitive files.
   #
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"

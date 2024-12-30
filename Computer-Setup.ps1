@@ -117,16 +117,20 @@ foreach ( $app in $APPS_PSBL ) {
 ## CONFIGURATIONS EDIT TO USE CURRENT PATH.
 #
 $CNFGS = @(
-  "$env:HOME\.gitconfig"                                        ## C:/User/.../ or C:\\User\\...
   # "$env:SCOOP\apps\*\current\install.json"                    ## looks to be deprecated.
   "$env:SCOOP\persist\git-persist\etc\gitconfig"                ## 
   "$env:SCOOP\shims\*"                                          ## C:\User\...\
   "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  ## C:\User\...\
   "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" ## C:\\User\\...\\
+  # Path types:
+  # "W" = "C:\Users\$env:USERNAME\path\..."      # Windows' backslashes.
+  # "L" = "C:/Users/$env:USERNAME/path/..."      # Linux's  forward slashes.
+  # "2" = "C:\\Users\\$env:USERNAME\\path\\..."  # Windows double backslash (for regex's).
+  "L" = "$env:HOME\.gitconfig"                                        ## C:/User/.../ or C:\\User\\...
+  "A" = ""
 )
 #
 foreach ( $cnfg in $CNFGS ) {
-  # Test for one of three types:
   # Simple clobber replacement... please be careful with sensitive files.
   #
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"

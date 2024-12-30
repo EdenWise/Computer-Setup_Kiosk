@@ -124,22 +124,27 @@ $CONFIGS = @{
   # "C:/Users/$env:USERNAME/path/..."     = "L"   # Linux   forward slashes.
   # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Windows double backslash (for regex's).
   #
-  "L" = "$env:HOME\.gitconfig"                                        = "L"
-  "L" = "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
-  "W" = "$env:SCOOP\shims\*"                                          = "W"
-  "W" = "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
-  "2" = "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
+  "$env:HOME\.gitconfig"                                        = "L"
+  "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
+  "$env:SCOOP\shims\*"                                          = "W"
+  "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
+  "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
   #
   # "$env:SCOOP\apps\*\current\install.json"                            = "W"   # deprecated?!
   #
 }
 #
 
-$CONFIGS.GetEnumerator() | ForEach-Object {}
+$CONFIGS.GetEnumerator() | ForEach-Object {
+  if ( $($_.Value) -eq "W" ) {
+    # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
+    # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
+    echo W
+  }
 #   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
 #   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null
 #   Write-Output "$($_.Key) : $($_.Value)"
-# }
+}
 
 $APP_REGS.GetEnumerator().ForEach({ foreach ( $value in $($_.Value) ) { echo "$($_.Key)---$value"} })
 

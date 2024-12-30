@@ -29,7 +29,7 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 #
-## Directories in home to hide.
+## Directories in home to hide..
 #
 $HOME_HIDE_DIRS = @(
   ".config"

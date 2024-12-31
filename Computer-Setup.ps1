@@ -120,9 +120,9 @@ $CONFIGS = @{
   #
   # Path types:
   #
-  # "C:\Users\$env:USERNAME\path\..."     = "W"   # Windows backslashes.
-  # "C:/Users/$env:USERNAME/path/..."     = "L"   # Linux   forward slashes.
-  # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Windows double backslash (for regex's).
+  # "C:\Users\$env:USERNAME\path\..."     = "W"   # Backslash separators used in Windows.
+  # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Backslash separators doubled (for regex's in Win).
+  # "C:/Users/$env:USERNAME/path/..."     = "L"   # Forward-slash separators used for Linux ports.
   #
   "$env:HOME\.gitconfig"                                        = "L"
   "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"

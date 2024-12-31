@@ -167,8 +167,8 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
     $ENV_USEPRF_FWS = ($env:USERPROFILE) -replace "\\","/"
     #
     $_.Name | ForEach-Object {
-      (Get-Content -Path $_) -replace "C:/Users/.*?(/)","$ENV_USEPRF_FWS//"
-        # | Set-Content -Path $_
+      (Get-Content -Path $_) -replace "C:/Users/.*?(/)","$ENV_USEPRF_FWS/" `
+        | Set-Content -Path $_
     }
   }
 }

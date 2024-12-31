@@ -147,14 +147,16 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
   #
   if ( $($_.Value) -eq "W" ) {
     $CONFIGS.Keys | ForEach-Object {
-      (Get-Content -Path $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\"
+      (Get-Content -Path $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" `
+        | Set-Content -Path $_
     }
   }
   #
   if ( $($_.Value) -eq "2" ) {
     $CONFIGS.Keys | ForEach-Object {
       $ENV_USERPROFILE = ($env:USERPROFILE) -replace "\\","\\"
-      (Get-Content -Path $_) -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE\\"
+      (Get-Content -Path $_) -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE\\" `
+        | Set-Content -Path $_
     }
   }
 

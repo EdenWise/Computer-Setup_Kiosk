@@ -114,7 +114,7 @@ foreach ( $app in $APPS_PSBL ) {
   }
 }
 
-## CONFIGURATIONS EDIT TO USE CURRENT PATH.
+## CONFIGURATIONS REPLACE PATH TO CURRENT PATH.
 #
 $CONFIGS = @{
   #
@@ -130,7 +130,7 @@ $CONFIGS = @{
   "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
   "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
   #
-  # "$env:SCOOP\apps\*\current\install.json"                            = "W"   # deprecated?!
+  # "$env:SCOOP\apps\*\current\install.json"                      = "W"   # deprecated?!
   #
 }
 #

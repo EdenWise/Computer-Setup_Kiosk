@@ -126,9 +126,9 @@ $CONFIGS = @{
   #
   "$env:HOME\.gitconfig"                                        = "L"
   "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
-  "$env:SCOOP\shims\*"                                          = "W"
   "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
   "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
+  "$env:SCOOP\shims\*.shims"                                    = "W"
   #
   # "$env:SCOOP\apps\*\current\install.json"                      = "W"   # deprecated?!
   #
@@ -136,10 +136,15 @@ $CONFIGS = @{
 #
 
 $CONFIGS.GetEnumerator() | ForEach-Object {
+  #
+  # Simple clobber replacement. Please be careful with sensitive files!
+  #
+  # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
+  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {}
+  #
   if ( $($_.Value) -eq "W" ) {
-    # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-    # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-    # Select-String
+    # Select-String -Pattern "C:\\Users\\.*?(\\)" -Path $CONFIGS.Keys
+    $CONFIGS.Keys | ForEach-Object { (Get-Content -Path $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" }
   }
 #   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
 #   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null
@@ -149,7 +154,6 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
 $APP_REGS.GetEnumerator().ForEach({ foreach ( $value in $($_.Value) ) { echo "$($_.Key)---$value"} })
 
 foreach ( $cnfg in $CONFIGS ) {
-  # Simple clobber replacement... please be careful with sensitive files.
   #
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {

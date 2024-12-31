@@ -197,7 +197,7 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
 #
 # POWERSHELL (COMMENTED BECAUSE I USUALLY USE ENV:USERPROFILE)
 #
-( Get-Content $( Get-PSReadLineOption ).HistorySavePath ) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" | Set-Content $( Get-PSReadLineOption ).HistorySavePath
+# ( Get-Content $( Get-PSReadLineOption ).HistorySavePath ) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" | Set-Content $( Get-PSReadLineOption ).HistorySavePath
 #
 #
 # SCOOP: INSTALLS THAT ARE LOCAL CHANGE PATH IN install.json FOR PORTABILITY.

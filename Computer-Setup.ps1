@@ -169,49 +169,31 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
     }
   }
 }
-
-$APP_REGS.GetEnumerator().ForEach({ foreach ( $value in $($_.Value) ) { echo "$($_.Key)---$value"} })
-
-foreach ( $cnfg in $CONFIGS ) {
-  #
-  # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-    #Select-String -SimpleMatch "$env:USERPROFILE" -Path $cnfg
-  # $env_userprofile = ($env:USERPROFILE) -replace "\\","\\"
-  # Get-Content $file | foreach { $_ -replace "asdfsdf","ASDFSDF" } | Set-Content $file
-}
-
-
-$ENV_USERPROFILE_LINUX = ($env:USERPROFILE) -replace "\\","/"  # REPLACE \ WITH / FOR LINUX
 #
 # Scoop: shims: path replace with current path.
 #
-$FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
-$FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
-
-## FILES FOR LIBRARY FIX PATH (REPLACE USERPROFILE PART FOR PORTABLE USE).
-#
-#
+# $FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
+# $FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
 #
 # GIT (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
 #
-$GITCONFIGS = @(
-  "$env:HOME\.gitconfig"
-  "$env:SCOOP\persist\git-persist\etc\gitconfig"
-)
-#
-foreach ( $gitconfig in $GITCONFIGS ) {
-  Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
-  # -Raw
-  Write-Output "====="
-  (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
-  Write-Output "====="
-  #
-  # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-    (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/" `
-       | Set-Content $gitconfig
-}
+# $GITCONFIGS = @(
+#   "$env:HOME\.gitconfig"
+#   "$env:SCOOP\persist\git-persist\etc\gitconfig"
+# )
+# #
+# foreach ( $gitconfig in $GITCONFIGS ) {
+#   Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
+#   # -Raw
+#   Write-Output "====="
+#   (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
+#   Write-Output "====="
+#   #
+#   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
+#   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
+#     (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/" `
+#        | Set-Content $gitconfig
+# }
 #
 # POWERSHELL (COMMENTED BECAUSE I USUALLY USE ENV:USERPROFILE)
 #

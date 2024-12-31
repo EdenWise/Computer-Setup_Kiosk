@@ -137,7 +137,7 @@ $CONFIGS = @{
 
 $CONFIGS.GetEnumerator() | ForEach-Object {
   #
-  # Simple clobber replacement. Please be careful with sensitive files!
+  # Simple clobber replacement... PLEASE be careful with sensitive files!
   #
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {}

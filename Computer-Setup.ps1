@@ -114,11 +114,11 @@ foreach ( $app in $APPS_PSBL ) {
   }
 }
 
-## CONFIGURATIONS REPLACE PATH TO CURRENT PATH.
+## CONFIGURATIONS REPLACE PATH WITH CURRENT PATH.
 #
 $CONFIGS = @{
   #
-  # Path types:
+  # Path types:  (Simple clobber replacement... PLEASE be careful with sensitive files!)
   #
   # "C:\Users\$env:USERNAME\path\..."     = "W"   # Backslash separators used in Windows.
   # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Backslash separators doubled (for regex's in Win).
@@ -134,10 +134,7 @@ $CONFIGS = @{
   #
 }
 #
-
 $CONFIGS.GetEnumerator() | ForEach-Object {
-  #
-  # Simple clobber replacement... PLEASE be careful with sensitive files!
   #
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
@@ -171,11 +168,6 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
         | Set-Content -Path $_
     }
   }
-}
-#
-#   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
-#   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null
-#   Write-Output "$($_.Key) : $($_.Value)"
 }
 
 $APP_REGS.GetEnumerator().ForEach({ foreach ( $value in $($_.Value) ) { echo "$($_.Key)---$value"} })

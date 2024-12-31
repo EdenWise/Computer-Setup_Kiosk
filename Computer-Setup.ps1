@@ -153,14 +153,26 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
   }
   #
   if ( $($_.Value) -eq "2" ) {
+    #
+    $ENV_USEPRF_DBL = ($env:USERPROFILE) -replace "\\","\\"
+    #
     $CONFIGS.Keys | ForEach-Object {
-      $ENV_USERPROFILE = ($env:USERPROFILE) -replace "\\","\\"
-      (Get-Content -Path $_) -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE\\" `
+      (Get-Content -Path $_) -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USEPRF_DBL\\" `
         | Set-Content -Path $_
     }
   }
-
-
+#
+  if ( $($_.Value) -eq "L" ) {
+    #
+    $ENV_USEPRF_FWS = ($env:USERPROFILE) -replace "\\","/"
+    #
+    $CONFIGS.Keys | ForEach-Object {
+      (Get-Content -Path $_) -replace "C:/Users/.*?(/)","$ENV_USEPRF_FWS\\" `
+        | Set-Content -Path $_
+    }
+  }
+}
+#
 #   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
 #   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null
 #   Write-Output "$($_.Key) : $($_.Value)"

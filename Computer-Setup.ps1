@@ -146,7 +146,7 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
   # }
   #
   if ( $($_.Value) -eq "W" ) {
-    $CONFIGS.Keys | ForEach-Object {
+    $_.Name | ForEach-Object {
       (Get-Content -Path $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" `
         | Set-Content -Path $_
     }
@@ -156,7 +156,7 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
     #
     $ENV_USEPRF_DBL = ($env:USERPROFILE) -replace "\\","\\"
     #
-    $CONFIGS.Keys | ForEach-Object {
+    $_.Name | ForEach-Object {
       (Get-Content -Path $_) -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USEPRF_DBL\\" `
         | Set-Content -Path $_
     }
@@ -166,9 +166,9 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
     #
     $ENV_USEPRF_FWS = ($env:USERPROFILE) -replace "\\","/"
     #
-    $CONFIGS.Keys | ForEach-Object {
-      (Get-Content -Path $_) -replace "C:/Users/.*?(/)","$ENV_USEPRF_FWS\\" `
-        | Set-Content -Path $_
+    $_.Name | ForEach-Object {
+      (Get-Content -Path $_) -replace "C:/Users/.*?(/)","$ENV_USEPRF_FWS//"
+        # | Set-Content -Path $_
     }
   }
 }

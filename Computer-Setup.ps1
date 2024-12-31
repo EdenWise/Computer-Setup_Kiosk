@@ -139,7 +139,7 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
   if ( $($_.Value) -eq "W" ) {
     # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
     # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-    echo W
+    # Select-String
   }
 #   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
 #   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null

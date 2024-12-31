@@ -140,11 +140,16 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
   # Simple clobber replacement... PLEASE be careful with sensitive files!
   #
   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {}
+  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
+  #   Select-String -Pattern "C:\\Users\\.*?(\\)" -Path $CONFIGS.Keys
+  #   ...
+  # }
   #
   if ( $($_.Value) -eq "W" ) {
-    # Select-String -Pattern "C:\\Users\\.*?(\\)" -Path $CONFIGS.Keys
-    $CONFIGS.Keys | ForEach-Object { (Get-Content -Path $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" }
+    $CONFIGS.Keys | `
+      ForEach-Object {
+        (Get-Content -Path $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\"
+      }
   }
 #   [System.Environment]::SetEnvironmentVariable("$($_.Key)", "$($_.Value)", "User")
 #   New-Item -Force -Path env:\$($_.Key) -Value "$($_.Value)" | Out-Null

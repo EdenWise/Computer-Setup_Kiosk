@@ -2,7 +2,7 @@
 #
 
 ## CONFIGURATION: VARIABLES FOR SCRIPT AND ENVIRONMENT CREATE.
-#
+
 ## Variables for script.
 #
 $env:DSP_BRT              = "80"                                    # Display Brightness
@@ -11,7 +11,7 @@ $env:HOME                 = "$env:APPDATA\.config"                  # Home dir f
 $env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector editor pref loc
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
-#
+
 ## Variables for environment (user).
 #
 $KEY_VALU = @{
@@ -21,13 +21,34 @@ $KEY_VALU = @{
   "INKSCAPE_PROFILE_DIR"  = $env:INKSCAPE_PROFILE_DIR
   "SCOOP"                 = $env:SCOOP
   "XDG_CONFIG_HOME"       = $env:XDG_CONFIG_HOME }
-#
+
 ## Paths of executable files add to.
 #
 $PATHS = @(                                                        # Paths with executables to add.
   "$env:USERPROFILE\Documents\PowerShell;"
   "$env:USERPROFILE\Program-Manager\shims;"
 )
+
+## Configuration files to replace path with current one.
+#
+$CONFIGS = @{
+  #
+  # Path types:  (Simple clobber replacement... PLEASE be careful with sensitive files!)
+  #
+  # "C:\Users\$env:USERNAME\path\..."     = "W"   # Windows-standard backslash separators.
+  # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Windows-standard backslash doubled (regex safe).
+  # "C:/Users/$env:USERNAME/path/..."     = "L"   # Linux-standard forward-slash seps. (for ports).
+  #
+  "$env:HOME\.gitconfig"                                        = "L"
+  "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
+  "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
+  "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
+  "$env:SCOOP\shims\*.shim"                                     = "W"
+  #
+  # "$env:SCOOP\apps\*\current\install.json"                      = "W"   # deprecated?!
+  #
+}
+
 #
 ## Directories in home to hide..
 #
@@ -114,25 +135,7 @@ foreach ( $app in $APPS_PSBL ) {
   }
 }
 
-## CONFIGURATIONS REPLACE PATH WITH CURRENT PATH.
-#
-$CONFIGS = @{
-  #
-  # Path types:  (Simple clobber replacement... PLEASE be careful with sensitive files!)
-  #
-  # "C:\Users\$env:USERNAME\path\..."     = "W"   # Backslash separators used in Windows.
-  # "C:\\Users\\$env:USERNAME\\path\\..." = "2"   # Backslash separators doubled (for regex's in Win).
-  # "C:/Users/$env:USERNAME/path/..."     = "L"   # Forward-slash separators used for Linux ports.
-  #
-  "$env:HOME\.gitconfig"                                        = "L"
-  "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
-  "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
-  "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
-  "$env:SCOOP\shims\*.shim"                                     = "W"
-  #
-  # "$env:SCOOP\apps\*\current\install.json"                      = "W"   # deprecated?!
-  #
-}
+## CONFIGURATION FILES: REPLACE PATH WITH CURRENT ONE.
 #
 $CONFIGS.GetEnumerator() | ForEach-Object {
   #

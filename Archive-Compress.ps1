@@ -24,12 +24,12 @@ $CMPR = "7z"
 $PATH_CONT = "$env:USERPROFILE\Downloads\${TYPE}_${LCTN}${LOCL}.$CONT"
 $PATH_CMPR = "$env:USERPROFILE\Downloads\${TYPE}_${LCTN}${LOCL}.$CMPR"
 #
-$FILE_INCS = "$env:TEMP\archive-includes.txt"
-$FILE_EXCS = "$env:TEMP\archive-excludes.txt"
+$LIST_INCL = "$env:TEMP\archive-includes.txt"
+$LIST_EXCL = "$env:TEMP\archive-excludes.txt"
 
-## LISTS OF INCLUDE AND EXCLUDE FILES
+## LISTS FOR INCLUDE AND EXCLUDE FILES.
 #
-$LIST_INCS = @(
+$INCL_FILES = @(
   # ".config"
   # "AppData\LocalLow\Daggerfall Workshop"
   # "AppData\Roaming\Microsoft\Windows\PowerShell"
@@ -42,29 +42,35 @@ $LIST_INCS = @(
   "Documents"
   "Program-Manager"
   #
-) | Out-File -Encoding utf8 -Force $FILE_INCS
+)
 #
-$LIST_EXCS = @(
+foreach ( $include)
+# | Out-File -Encoding utf8 -Force $LIST_INCL
+#
+$EXCL_FILES = @(
   "desktop.ini"
   "Documents\My Music"
   "Documents\My Pictures"
   "Documents\My Shapes"
   "Documents\My Videos"
   "~\Downloads\"
-) | Out-File -Encoding utf8 -Force $FILE_EXCS
+) | Out-File -Encoding utf8 -Force $LIST_EXCL
+
+#
+
 #
 # LIST OF JUNCTIONS/SOFT-LINKS CREATE AND ADD TO LIST FOR EXCLUDES.
 #
-cmd.exe /C dir /AL /S /B $env:SCOOP | foreach {$_.Replace("$env:USERPROFILE\","")} | Out-File -Append -Encoding utf8 $FILE_EXCS
+cmd.exe /C dir /AL /S /B $env:SCOOP | foreach {$_.Replace("$env:USERPROFILE\","")} | Out-File -Append -Encoding utf8 $LIST_EXCL
 
 ## ARCHIVE
 #
 Push-Location $env:USERPROFILE
 #
 # CONTAINER: WIM (RECOMMENDED)---FASTER, OFFERS REASONABLE COMPRESSION.
-7zr.exe u $PATH_CONT -up0q0r2x1y2z1w2 -ir@"$FILE_INCS" -xr@"$FILE_EXCS" -ms=off -snh -snl
+7zr.exe u $PATH_CONT -up0q0r2x1y2z1w2 -ir@"$LIST_INCL" -xr@"$LIST_EXCL" -ms=off -snh -snl
 #
 # COMPRESSION ONLY (compression [low-high]: -mx=[0-9])
-# 7zr.exe u $PATH_CMPR -up0q0r2x1y2z1w2 -ir@"$FILE_INCS" -xr@"$FILE_EXCS" -ms=off -snh -snl -mx=5
+# 7zr.exe u $PATH_CMPR -up0q0r2x1y2z1w2 -ir@"$LIST_INCL" -xr@"$LIST_EXCL" -ms=off -snh -snl -mx=5
 #
 Pop-Location

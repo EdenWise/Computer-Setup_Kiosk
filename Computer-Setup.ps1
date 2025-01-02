@@ -128,19 +128,13 @@ $CONFIGS = @{
   "$env:SCOOP\persist\git-persist\etc\gitconfig"                = "L"
   "$env:SCOOP\persist\pwsh\PSReadLine\ConsoleHost_history.txt"  = "W"
   "$env:SCOOP\persist\vscode\data\user-data\User\settings.json" = "2"
-  "$env:SCOOP\shims\*.shims"                                    = "W"
+  "$env:SCOOP\shims\*.shim"                                     = "W"
   #
   # "$env:SCOOP\apps\*\current\install.json"                      = "W"   # deprecated?!
   #
 }
 #
 $CONFIGS.GetEnumerator() | ForEach-Object {
-  #
-  # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-  # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-  #   Select-String -Pattern "C:\\Users\\.*?(\\)" -Path $CONFIGS.Keys
-  #   ...
-  # }
   #
   if ( $($_.Value) -eq "W" ) {
     $_.Name | ForEach-Object {
@@ -169,52 +163,6 @@ $CONFIGS.GetEnumerator() | ForEach-Object {
     }
   }
 }
-#
-# Scoop: shims: path replace with current path.
-#
-# $FILES_SHIM = Get-ChildItem -File -Path $env:SCOOP\shims\* -Include "*.shim", "scoop", "scoop.cmd"
-# $FILES_SHIM | ForEach-Object { (Get-Content $_) -replace "C:\\Users\\.*?(\\)","$env:USERPROFILE\" | Set-Content $_ }
-#
-# GIT (COMPARE ORIGINAL WITH NEW, PATH REPLACE WITH PROMPT)
-#
-# $GITCONFIGS = @(
-#   "$env:HOME\.gitconfig"
-#   "$env:SCOOP\persist\git-persist\etc\gitconfig"
-# )
-# #
-# foreach ( $gitconfig in $GITCONFIGS ) {
-#   Select-String -Pattern "C:/Users(/).*?(/)" -Path $gitconfig
-#   # -Raw
-#   Write-Output "====="
-#   (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/"
-#   Write-Output "====="
-#   #
-#   # $ANSWER = Read-Host "${gitconfig}: replace with new PATH? (y/n)"
-#   # if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-#     (Get-Content $gitconfig) -replace "C:/Users(/).*?(/)","$ENV_USERPROFILE_LINUX/" `
-#        | Set-Content $gitconfig
-# }
-#
-# POWERSHELL (COMMENTED BECAUSE I USUALLY USE ENV:USERPROFILE)
-#
-# ( Get-Content $( Get-PSReadLineOption ).HistorySavePath ) -replace "C:\\Users\\.*?\\","$ENV_USERPROFILE\" | Set-Content $( Get-PSReadLineOption ).HistorySavePath
-#
-#
-# SCOOP: INSTALLS THAT ARE LOCAL CHANGE PATH IN install.json FOR PORTABILITY.
-#
-# $ENV_USERPROFILE_SCOOP = ($ENV:USERPROFILE) -replace "\\","\\"
-# $FILES_INST = (Get-ChildItem -File -Path $env:SCOOP\manifests-local\*.json).BaseName
-# #
-# foreach ( $file in $FILES_INST ) {
-#   (Get-Content "$env:SCOOP\apps\$file\current\install.json") -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" }
-# #
-# $ANSWER = Read-Host "Scoop replace local install.jsons with new PATH? (y/n)"
-# if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-#   foreach ( $file in $FILES_INST ) {
-#     (Get-Content "$env:SCOOP\apps\$file\current\install.json") -replace "C:\\\\Users\\.*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" `
-#     | Set-Content "$env:SCOOP\apps\$file\current\install.json" }
-#   # $file | ForEach-Object { (Get-Content $_) -replace "C:\\\\Users(\\\\).*?(\\\\)","$ENV_USERPROFILE_SCOOP\\" | Set-Content $_ 
-# }
 
 ## DIRECTORIES IN HOME TO HIDE.
 #

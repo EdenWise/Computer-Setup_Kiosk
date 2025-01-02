@@ -42,10 +42,12 @@ $INCL_FILES = @(
   "Documents"
   "Program-Manager"
   #
-)
+) | Out-File -Encoding utf8 -Force $LIST_INCL
 #
-foreach ( $include)
-# | Out-File -Encoding utf8 -Force $LIST_INCL
+foreach ( $file in $INCL_FILES ) {
+  if   ( Test-Path -Path $file ) {}
+  else { Write-Output "List for includes is missing: $file" }
+}
 #
 $EXCL_FILES = @(
   "desktop.ini"
@@ -56,9 +58,6 @@ $EXCL_FILES = @(
   "~\Downloads\"
 ) | Out-File -Encoding utf8 -Force $LIST_EXCL
 
-#
-
-#
 # LIST OF JUNCTIONS/SOFT-LINKS CREATE AND ADD TO LIST FOR EXCLUDES.
 #
 cmd.exe /C dir /AL /S /B $env:SCOOP | foreach {$_.Replace("$env:USERPROFILE\","")} | Out-File -Append -Encoding utf8 $LIST_EXCL

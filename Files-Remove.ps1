@@ -20,8 +20,10 @@ Push-Location $env:USERPROFILE
 
 $ANSWER = Read-Host "Files remove that were extracted from the Archive."
 if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
-  $FILE_INCS = Get-Content $FILE_INCS
-  $FILE_INCS | Get-ChildItem -Force -Recurse | Remove-Item -Force -Recurse
+  $LIST_FILES = Get-Content $FILE_INCS
+  foreach ( $file in $LIST_FILES )
+    $files += $LIST_FILES | Get-ChildItem -Force -Recurse
+    #| Remove-Item -Force -Recurse
 }
 
 Pop-Location

@@ -4,6 +4,7 @@
 ### files left behind on the kiosk that are recorded in the 
 ### `Archive-Compress.ps1 script.
 #
+# $files += $file | Get-ChildItem -Force -Recurse | Remove-Item -Force -Recurse
 
 $FILE_INCS = "$env:TEMP\archive-includes.txt"
 if ( -not (Test-Path $FILE_INCS) ) {
@@ -19,7 +20,6 @@ if ( $ANSWER -eq "y" -or $ANSWER -eq "Y") {
   $LIST_FILES = Get-Content $FILE_INCS
   foreach ( $file in $LIST_FILES ) {
     if ( Test-Path -Path $file ) {
-      # $files += $file | Get-ChildItem -Force -Recurse | Remove-Item -Force -Recurse
       $file | Remove-Item -Force -Recurse
     }
   }

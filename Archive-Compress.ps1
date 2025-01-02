@@ -42,7 +42,6 @@ $LIST_INCS = @(
   "Documents"
   "Program-Manager"
   #
-  "tasks.code-workspace"
 ) | Out-File -Encoding utf8 -Force $FILE_INCS
 #
 $LIST_EXCS = @(

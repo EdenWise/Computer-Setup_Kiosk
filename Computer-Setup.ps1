@@ -29,7 +29,7 @@ $PATHS = @(                                                        # Paths with 
   "$env:USERPROFILE\Program-Manager\shims;"
 )
 
-## Configuration files to replace path with current one.
+## Configuration files to replace path with CURRENT PATH.
 #
 $CONFIGS = @{
   #
@@ -135,7 +135,7 @@ foreach ( $app in $APPS_PSBL ) {
   }
 }
 
-## CONFIGURATION FILES: REPLACE PATH WITH CURRENT ONE.
+## CONFIGURATION FILES: REPLACE PATH WITH CURRENT PATH.
 #
 $CONFIGS.GetEnumerator() | ForEach-Object {
   #

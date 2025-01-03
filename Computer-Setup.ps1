@@ -284,7 +284,7 @@ foreach ( $fnt_pth in $FNT_PTHS ) {
 # Font copy to local font directory.
 #
 foreach ( $fnt in $FNT_LST ) {
-  if ( -not ( Test-Path $fnt.FullName ) ) {
+  if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt" ) ) {
     cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
   }
 }

@@ -8,8 +8,8 @@
 $env:DSP_BRT              = "80"                                    # Display Brightness
 $env:MSE_SNS              = "5"                                     # Mouse Sensitivity
 $env:HOME                 = "$env:APPDATA\.config"                  # Home dir for Linux-apps
-$env:INKSCAPE_PROFILE_DIR = "$env:USERPROFILE\persist\inkscape\settings"  # Vector editor pref loc
 $env:SCOOP                = "$env:USERPROFILE\Program-Manager"      # Program-Manager install dir.
+$env:INKSCAPE_PROFILE_DIR = "$env:SCOOP\persist\inkscape\settings"  # Vector editor pref loc
 $env:XDG_CONFIG_HOME      = "$env:HOME"                             # Scoop uses this for a log file.
 
 ## Variables for environment (user).
@@ -18,9 +18,10 @@ $KEY_VALU = @{
   "DSP_BRT"               = $env:DSP_BRT
   "MSE_SNS"               = $env:MSE_SNS
   "HOME"                  = $env:HOME
-  "INKSCAPE_PROFILE_DIR"  = $env:INKSCAPE_PROFILE_DIR
   "SCOOP"                 = $env:SCOOP
-  "XDG_CONFIG_HOME"       = $env:XDG_CONFIG_HOME }
+  "INKSCAPE_PROFILE_DIR"  = $env:INKSCAPE_PROFILE_DIR
+  "XDG_CONFIG_HOME"       = $env:XDG_CONFIG_HOME
+}
 
 ## Paths of executable files add to.
 #

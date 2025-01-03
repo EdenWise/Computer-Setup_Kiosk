@@ -17,4 +17,4 @@ foreach ( $uri in $URIS ) {
   curl.exe --location --remote-name --remote-time $uri
 }
 
-Write-Output "curl.exe `"https://ice-us-sfo-56545.icedrive.io/download?p=o3TuvpQwFooCefgCRvHs0_JNKi7ltCI9Y.6Yxx5eNO7doxp0Zf.8ofhOmWN5AtsjKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWMozMSHwdKhXrfwG9ikry3EH53B71QUwCxPy6NA1Y5wlJY1o5mm8FOdoqiCOaagZXdNtkit57.qm0dw7wXclI25sDhZ42BVO2JdPJAXsqsRhg--`" -Lo Files_Library.wim"
+Write-Output "curl.exe `"https://ice-us-sfo-103085.icedrive.io/download?p=HIHjH8CNfveW9lN8kb6yLb6UbIUvjdEZLF5fZ8VlnEbdoxp0Zf.8ofhOmWN5AtsjKtIi8OqKVJnmiYmAlgSLp7Re_EKClSVuzADjEjL5AWM7RWpopsZc6wdK6cQNXc.ijMiviFpgVjvBBgro1XF4hZzksAJvC7AmNP7eIGUEPxRNtkit57.qm0dw7wXclI25sDhZ42BVO2JdPJAXsqsRhg--`" -Lo Files_Library.wim"

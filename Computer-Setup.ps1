@@ -276,19 +276,22 @@ namespace FontResource
 try   { Add-Type $fontCSharpCode }
 catch {}
 #
-## Fonts register and (add to font cache?!). <https://stackoverflow.com/a/58100621>
-#
-# Font copy to local font directory.
+# Fonts copy to local font directory.
 #
 if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
   mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
-  cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
 }
+## Fonts register and (add to font cache?!). <https://stackoverflow.com/a/58100621>
 #
-
 $FNT_LST = Get-ChildItem -File -Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\*.ttf"
 #
 foreach ( $fnt in $FNT_LST ) {
+  #
+  # Font copy to local font directory.
+  #
+  if ( -not ( Test-Path $fnt.FullName ) ) {}
+    cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+  }
   #
   # Font name acquire.
   #

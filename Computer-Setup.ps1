@@ -239,12 +239,6 @@ catch {}
 ## FONTS INSTALL <https://stackoverflow.com/q/60972345>
 ### This method still has problems, some applications (like Inkscape) will fail to see them.
 #
-## List create of font locations.
-#
-foreach ( $fnt_pth in $FNT_PTHS ) {
-  $FNT_LST += Get-ChildItem -File -Path $fnt_pth -Exclude "static"
-}
-#
 ## Code in C# add for font additions.
 #
 $fontCSharpCode = @'
@@ -276,22 +270,30 @@ namespace FontResource
 try   { Add-Type $fontCSharpCode }
 catch {}
 #
-# Font directory for local create.
+# Directory for fonts that are local create.
 #
 if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
   mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
 }
+## List create of font locations.
+#
+foreach ( $fnt_pth in $FNT_PTHS ) {
+  $FNT_LST += Get-ChildItem -File -Path $fnt_pth -Exclude "static"
+}
+#
+# Font copy to local font directory.
+#
+foreach ( $fnt in $FNT_LST ) {
+  if ( -not ( Test-Path $fnt.FullName ) ) {
+    cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+  }
+}
+#
 $FNT_LST = Get-ChildItem -File -Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\*.ttf"
 #
 ## Fonts register and (add to font cache?!). <https://stackoverflow.com/a/58100621>
 #
 foreach ( $fnt in $FNT_LST ) {
-  #
-  # Font copy to local font directory.
-  #
-  if ( -not ( Test-Path $fnt.FullName ) ) {}
-    cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
-  }
   #
   # Font name acquire.
   #

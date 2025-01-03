@@ -237,6 +237,7 @@ try   { Set-TimeZone -Id "Pacific Standard Time"
 catch {}
 
 ## FONTS INSTALL <https://stackoverflow.com/q/60972345>
+### This method still has problems, some applications (like Inkscape) will fail to see them.
 #
 ## List create of font locations.
 #
@@ -277,6 +278,16 @@ catch {}
 #
 ## Fonts register and (add to font cache?!). <https://stackoverflow.com/a/58100621>
 #
+# Font copy to local font directory.
+#
+if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
+  mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+  cp $fnt.FullName "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+}
+#
+
+$FNT_LST = Get-ChildItem -File -Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\*.ttf"
+#
 foreach ( $fnt in $FNT_LST ) {
   #
   # Font name acquire.
@@ -291,6 +302,7 @@ foreach ( $fnt in $FNT_LST ) {
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) {
+    #
     #
     # Font register.
     #

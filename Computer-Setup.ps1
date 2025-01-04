@@ -236,10 +236,11 @@ try   { Set-TimeZone -Id "Pacific Standard Time"
         tzutil.exe /s "Pacific Standard Time" }
 catch {}
 
-## FONTS INSTALL <https://stackoverflow.com/q/60972345>
-### This method still has problems, some applications (like Inkscape) will fail to see them.
+## FONT INSTALLS
+# <https://github.com/EdenWise/Computer-Setup_Kiosk>
+# <https://stackoverflow.com/q/60972345>
 #
-## Code in C# add for font additions.
+## Code (C#) for font additions.
 #
 $fontCSharpCode = @'
 using System;
@@ -307,7 +308,6 @@ foreach ( $fnt in $FNT_LST ) {
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) {
-    #
     #
     # Font register.
     #

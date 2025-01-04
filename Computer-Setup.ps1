@@ -271,7 +271,7 @@ namespace FontResource
 try   { Add-Type $fontCSharpCode }
 catch {}
 #
-# Directory for fonts that are local create.
+# Directory create for fonts that are local.
 #
 if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
   mkdir "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
@@ -282,7 +282,7 @@ foreach ( $fnt_pth in $FNT_PTHS ) {
   $FNT_LST += Get-ChildItem -File -Path $fnt_pth -Exclude "static"
 }
 #
-# Font copy to local font directory.
+# Fonts copy to local font directory.
 #
 foreach ( $fnt in $FNT_LST ) {
   if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\$fnt" ) ) {

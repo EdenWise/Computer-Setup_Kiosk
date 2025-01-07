@@ -281,8 +281,6 @@ if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
 #
 foreach ( $fnt_pth in $FNT_PTHS ) {
   $FNT_LST += Get-ChildItem -Path $fnt_pth -Exclude "static"
-  # -Exclude "static" and -File sometimes conflict (e.g. with FiraGO) unsure why
-  # Was hoping to exclude static directories. -File redundant anyhow.
 }
 #
 # Fonts copy to local font directory.

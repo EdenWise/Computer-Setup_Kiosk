@@ -282,7 +282,9 @@ if ( -not ( Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts" ) ) {
 ## List create of font locations.
 #
 foreach ( $fnt_pth in $FNT_PTHS ) {
-  $FNT_LST += Get-ChildItem -Path $fnt_pth -Exclude "static"
+  if ( Test-Path -Path $fnt_pth ) {
+    $FNT_LST += Get-ChildItem -Path $fnt_pth -Exclude "static"
+  }
 }
 #
 # Fonts copy to local font directory.

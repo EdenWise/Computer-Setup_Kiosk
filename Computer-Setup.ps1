@@ -308,7 +308,6 @@ foreach ( $fnt in $FNT_LST ) {
   $SHL_FNT = $SHL_DIR.ParseName($fnt.Name)
   $FNT_NME = $SHL_DIR.GetDetailsOf($SHL_FNT, 21)
   #
-  #
   $reg_pth = "HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
   $INSTLLD = Get-ItemProperty -Path $reg_pth -Name "$FNT_NME (TrueType)" -ErrorAction SilentlyContinue
   if ( -not $INSTLLD ) {

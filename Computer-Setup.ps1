@@ -77,7 +77,7 @@ $HOME_HIDE_DIRS = @(
 #
 $FNT_PTHS = @(
   "$env:SCOOP\apps\font_firago\current\FiraGO_TTF\*\*.ttf"
-  "$env:SCOOP\apps\font_fira-mono\current\*.ttf"
+  "$env:SCOOP\apps\font_fira-mono\current\*.otf"
   "$env:SCOOP\apps\font_merriweather\current\*.ttf"
   "$env:SCOOP\apps\font_roboto-slab\current\*.ttf"
   "$env:SCOOP\apps\font_roboto\current\*.ttf"

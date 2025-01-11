@@ -192,10 +192,9 @@ foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
 #
 # $APP_REGS    = @{
 #   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe" = ".svg"
-#   "$env:SCOOP\apps\vscode\current\bin\code.cmd"       =`
-#       ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml"
-#   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe" =`
-#     "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https"
+#   "$env:SCOOP\apps\vscode\current\bin\code.cmd"       = ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml"
+#   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe" = ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https"
+#   # "microsoft-edge", "microsoft-edge-holographic", 
 # }
 #
 ##

@@ -77,7 +77,6 @@ $HOME_HIDE_DIRS = @(
 #
 $FNT_PTHS = @(
   "$env:SCOOP\apps\font_firago\current\FiraGO_TTF\*\*.ttf"
-  "$env:SCOOP\apps\font_fira-mono\current\*.otf"
   "$env:SCOOP\apps\font_merriweather\current\*.ttf"
   "$env:SCOOP\apps\font_roboto-slab\current\*.ttf"
   "$env:SCOOP\apps\font_roboto\current\*.ttf"
@@ -193,8 +192,10 @@ foreach ( $home_hide_dir in $HOME_HIDE_DIRS ) {
 #
 # $APP_REGS    = @{
 #   "$env:SCOOP\apps\inkscape\current\bin\inkscape.exe" = ".svg"
-#   "$env:SCOOP\apps\vscode\current\bin\code.cmd" = ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml"
-#   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe" = "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https"
+#   "$env:SCOOP\apps\vscode\current\bin\code.cmd"       =`
+#       ".code-workspace",".ini",".json",".log",".markdown",".md",".psm1",".ps1",".txt",".xml"
+#   "$env:SCOOP\apps\waterfox-libportable\current\core\waterfox.exe" =`
+#     "microsoft-edge", "microsoft-edge-holographic", ".htm", ".html", ".pdf", ".shtml", ".xht", ".xhtml", "ftp", "http", "https"
 # }
 #
 ##

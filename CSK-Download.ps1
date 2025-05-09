@@ -2,6 +2,7 @@
 ### "https://raw.githubusercontent.com/EdenWise/Computer-Setup_Kiosk/master/7za.exe"
 ### Start-BitsTransfer -Asynchronous -Source $uri -Destination "$PWD\$(Split-Path -Leaf $uri)"
 ### curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
+### Set-ExecutionPolicy Unrestricted CurrentUser
 
 $URIS = @(
   "https://7-zip.org/a/7zr.exe"

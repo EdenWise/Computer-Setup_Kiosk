@@ -3,3 +3,11 @@ Many Computer Kiosks reset daily (i.e. lab computers) but allow some customizati
 These scripts require Powershell to run. The easy way for me to start Powershell is by typing in the search box (*Type here to search*):
 
     conhost powershell.exe 
+
+Then download the script to download the other files :):
+
+    curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
+
+The Execution Policy may need to be enable before running a script:
+
+    Set-ExecutionPolicy Unrestricted CurrentUser

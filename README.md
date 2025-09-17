@@ -8,7 +8,7 @@ Then download the script to download the other scripts :):
 
     curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
 
-The Execution Policy may need to be enable before running a script:
+The Execution Policy may need to be enabled before running a script:
 
     Set-ExecutionPolicy Unrestricted CurrentUser
 

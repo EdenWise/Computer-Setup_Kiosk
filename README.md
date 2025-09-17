@@ -4,7 +4,7 @@ These scripts require Powershell to run. The easy way for me to start Powershell
 
     conhost powershell
 
-Then download the script to download the other files :):
+Then download the script to download the other scripts :):
 
     curl.exe https://bit.ly/cskdo -Lo CSK-Download.ps1
 

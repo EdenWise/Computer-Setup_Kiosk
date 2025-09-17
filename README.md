@@ -11,3 +11,5 @@ Then download the script to download the other files :):
 The Execution Policy may need to be enable before running a script:
 
     Set-ExecutionPolicy Unrestricted CurrentUser
+
+The script-names should decscibe their basic functionality. Be sure to look through the scripts first to tailor them to your needs. The scripts are farely-well commented.
